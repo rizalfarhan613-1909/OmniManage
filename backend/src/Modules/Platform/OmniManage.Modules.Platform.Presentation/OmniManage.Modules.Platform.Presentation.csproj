@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Platform.Presentation</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Platform.Presentation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Platform.Application\OmniManage.Modules.Platform.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Platform.Contracts\OmniManage.Modules.Platform.Contracts.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Platform.Application</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Platform.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Platform.Domain\OmniManage.Modules.Platform.Domain.csproj" />
+  </ItemGroup>
+</Project>

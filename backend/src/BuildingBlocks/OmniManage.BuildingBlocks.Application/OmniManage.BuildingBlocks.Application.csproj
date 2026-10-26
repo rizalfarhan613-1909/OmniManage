@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.BuildingBlocks.Application</RootNamespace>
+    <AssemblyName>OmniManage.BuildingBlocks.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.BuildingBlocks.Domain\OmniManage.BuildingBlocks.Domain.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Finance.Application</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Finance.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Finance.Contracts\OmniManage.Modules.Finance.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Finance.Domain\OmniManage.Modules.Finance.Domain.csproj" />
+    <ProjectReference Include="..\..\AssetMaintenance\OmniManage.Modules.AssetMaintenance.Contracts\OmniManage.Modules.AssetMaintenance.Contracts.csproj" />
+    <ProjectReference Include="..\..\Hris\OmniManage.Modules.Hris.Contracts\OmniManage.Modules.Hris.Contracts.csproj" />
+    <ProjectReference Include="..\..\Sales\OmniManage.Modules.Sales.Contracts\OmniManage.Modules.Sales.Contracts.csproj" />
+  </ItemGroup>
+</Project>

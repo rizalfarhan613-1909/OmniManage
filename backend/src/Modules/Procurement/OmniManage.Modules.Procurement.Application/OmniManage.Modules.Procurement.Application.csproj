@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Procurement.Application</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Procurement.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Procurement.Contracts\OmniManage.Modules.Procurement.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Procurement.Domain\OmniManage.Modules.Procurement.Domain.csproj" />
+  </ItemGroup>
+</Project>

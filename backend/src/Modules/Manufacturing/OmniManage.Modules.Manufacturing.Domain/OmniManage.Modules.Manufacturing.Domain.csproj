@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Manufacturing.Domain</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Manufacturing.Domain</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Domain\OmniManage.BuildingBlocks.Domain.csproj" />
+  </ItemGroup>
+</Project>

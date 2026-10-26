@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Api.IntegrationTests</RootNamespace>
+    <AssemblyName>OmniManage.Api.IntegrationTests</AssemblyName>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Host\OmniManage.Api\OmniManage.Api.csproj" />
+    <ProjectReference Include="..\..\src\Modules\AssetMaintenance\OmniManage.Modules.AssetMaintenance.Domain\OmniManage.Modules.AssetMaintenance.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\AssetMaintenance\OmniManage.Modules.AssetMaintenance.Infrastructure\OmniManage.Modules.AssetMaintenance.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Finance\OmniManage.Modules.Finance.Application\OmniManage.Modules.Finance.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Finance\OmniManage.Modules.Finance.Contracts\OmniManage.Modules.Finance.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Finance\OmniManage.Modules.Finance.Domain\OmniManage.Modules.Finance.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Finance\OmniManage.Modules.Finance.Infrastructure\OmniManage.Modules.Finance.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Hris\OmniManage.Modules.Hris.Domain\OmniManage.Modules.Hris.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Hris\OmniManage.Modules.Hris.Infrastructure\OmniManage.Modules.Hris.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Inventory\OmniManage.Modules.Inventory.Application\OmniManage.Modules.Inventory.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Inventory\OmniManage.Modules.Inventory.Domain\OmniManage.Modules.Inventory.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Inventory\OmniManage.Modules.Inventory.Infrastructure\OmniManage.Modules.Inventory.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\MasterData\OmniManage.Modules.MasterData.Application\OmniManage.Modules.MasterData.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\MasterData\OmniManage.Modules.MasterData.Domain\OmniManage.Modules.MasterData.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\MasterData\OmniManage.Modules.MasterData.Infrastructure\OmniManage.Modules.MasterData.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Manufacturing\OmniManage.Modules.Manufacturing.Application\OmniManage.Modules.Manufacturing.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Manufacturing\OmniManage.Modules.Manufacturing.Domain\OmniManage.Modules.Manufacturing.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Manufacturing\OmniManage.Modules.Manufacturing.Infrastructure\OmniManage.Modules.Manufacturing.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Platform\OmniManage.Modules.Platform.Application\OmniManage.Modules.Platform.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Platform\OmniManage.Modules.Platform.Domain\OmniManage.Modules.Platform.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Platform\OmniManage.Modules.Platform.Infrastructure\OmniManage.Modules.Platform.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Procurement\OmniManage.Modules.Procurement.Application\OmniManage.Modules.Procurement.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Procurement\OmniManage.Modules.Procurement.Domain\OmniManage.Modules.Procurement.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Procurement\OmniManage.Modules.Procurement.Infrastructure\OmniManage.Modules.Procurement.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Projects\OmniManage.Modules.Projects.Domain\OmniManage.Modules.Projects.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Projects\OmniManage.Modules.Projects.Infrastructure\OmniManage.Modules.Projects.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Sales\OmniManage.Modules.Sales.Application\OmniManage.Modules.Sales.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Sales\OmniManage.Modules.Sales.Contracts\OmniManage.Modules.Sales.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Sales\OmniManage.Modules.Sales.Domain\OmniManage.Modules.Sales.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Sales\OmniManage.Modules.Sales.Infrastructure\OmniManage.Modules.Sales.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

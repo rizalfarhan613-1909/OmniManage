@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Procurement.Presentation</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Procurement.Presentation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\Platform\OmniManage.Modules.Platform.Contracts\OmniManage.Modules.Platform.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Procurement.Application\OmniManage.Modules.Procurement.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Procurement.Contracts\OmniManage.Modules.Procurement.Contracts.csproj" />
+  </ItemGroup>
+</Project>

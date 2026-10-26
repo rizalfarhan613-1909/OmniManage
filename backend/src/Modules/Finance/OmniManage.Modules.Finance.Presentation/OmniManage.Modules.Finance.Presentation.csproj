@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Finance.Presentation</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Finance.Presentation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\Platform\OmniManage.Modules.Platform.Contracts\OmniManage.Modules.Platform.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Finance.Application\OmniManage.Modules.Finance.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Finance.Contracts\OmniManage.Modules.Finance.Contracts.csproj" />
+  </ItemGroup>
+</Project>

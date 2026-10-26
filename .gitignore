@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# OmniManage - repository root ignore rules
+# backend/ and frontend/ carry their own .gitignore for stack-specific output.
+# ---------------------------------------------------------------------------
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Local environment & secrets - never commit
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.snk
+
+# Logs & transient output
+*.log
+tsc-out.txt
+*.tsbuildinfo
+
+# Local backups & tool caches
+.backups/
+.agent-cache/
+.qodo/

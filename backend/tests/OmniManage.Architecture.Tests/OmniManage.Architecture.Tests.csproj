@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Architecture.Tests</RootNamespace>
+    <AssemblyName>OmniManage.Architecture.Tests</AssemblyName>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NetArchTest.Rules" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Domain\OmniManage.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Infrastructure\OmniManage.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Host\OmniManage.Api\OmniManage.Api.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Finance\OmniManage.Modules.Finance.Presentation\OmniManage.Modules.Finance.Presentation.csproj" />
+    <ProjectReference Include="..\..\src\Modules\AssetMaintenance\OmniManage.Modules.AssetMaintenance.Presentation\OmniManage.Modules.AssetMaintenance.Presentation.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Hris\OmniManage.Modules.Hris.Presentation\OmniManage.Modules.Hris.Presentation.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Platform\OmniManage.Modules.Platform.Presentation\OmniManage.Modules.Platform.Presentation.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Procurement\OmniManage.Modules.Procurement.Presentation\OmniManage.Modules.Procurement.Presentation.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Projects\OmniManage.Modules.Projects.Presentation\OmniManage.Modules.Projects.Presentation.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Sales\OmniManage.Modules.Sales.Presentation\OmniManage.Modules.Sales.Presentation.csproj" />
+  </ItemGroup>
+</Project>

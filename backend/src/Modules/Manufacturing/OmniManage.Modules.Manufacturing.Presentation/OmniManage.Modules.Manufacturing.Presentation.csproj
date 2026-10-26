@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Manufacturing.Presentation</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Manufacturing.Presentation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\Platform\OmniManage.Modules.Platform.Contracts\OmniManage.Modules.Platform.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Manufacturing.Application\OmniManage.Modules.Manufacturing.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Manufacturing.Contracts\OmniManage.Modules.Manufacturing.Contracts.csproj" />
+  </ItemGroup>
+</Project>

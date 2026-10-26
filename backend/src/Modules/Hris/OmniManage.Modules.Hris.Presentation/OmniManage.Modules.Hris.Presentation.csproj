@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Hris.Presentation</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Hris.Presentation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\Platform\OmniManage.Modules.Platform.Contracts\OmniManage.Modules.Platform.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Hris.Application\OmniManage.Modules.Hris.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Hris.Contracts\OmniManage.Modules.Hris.Contracts.csproj" />
+  </ItemGroup>
+</Project>

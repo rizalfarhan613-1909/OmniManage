@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Sales.Application</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Sales.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Sales.Contracts\OmniManage.Modules.Sales.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Sales.Domain\OmniManage.Modules.Sales.Domain.csproj" />
+  </ItemGroup>
+</Project>

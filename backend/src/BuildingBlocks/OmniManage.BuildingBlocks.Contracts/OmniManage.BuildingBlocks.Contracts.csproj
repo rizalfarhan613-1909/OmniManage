@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.BuildingBlocks.Contracts</RootNamespace>
+    <AssemblyName>OmniManage.BuildingBlocks.Contracts</AssemblyName>
+  </PropertyGroup>
+</Project>

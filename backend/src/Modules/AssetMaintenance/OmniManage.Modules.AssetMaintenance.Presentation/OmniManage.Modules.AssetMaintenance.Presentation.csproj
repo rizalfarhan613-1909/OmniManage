@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.AssetMaintenance.Presentation</RootNamespace>
+    <AssemblyName>OmniManage.Modules.AssetMaintenance.Presentation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\Platform\OmniManage.Modules.Platform.Contracts\OmniManage.Modules.Platform.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.AssetMaintenance.Application\OmniManage.Modules.AssetMaintenance.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.AssetMaintenance.Contracts\OmniManage.Modules.AssetMaintenance.Contracts.csproj" />
+  </ItemGroup>
+</Project>

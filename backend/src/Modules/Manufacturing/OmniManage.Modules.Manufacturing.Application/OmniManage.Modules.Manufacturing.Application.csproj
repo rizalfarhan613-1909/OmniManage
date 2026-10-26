@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Manufacturing.Application</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Manufacturing.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Manufacturing.Contracts\OmniManage.Modules.Manufacturing.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Manufacturing.Domain\OmniManage.Modules.Manufacturing.Domain.csproj" />
+  </ItemGroup>
+</Project>

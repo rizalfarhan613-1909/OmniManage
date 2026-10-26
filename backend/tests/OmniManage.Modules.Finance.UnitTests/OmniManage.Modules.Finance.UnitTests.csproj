@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Finance.UnitTests</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Finance.UnitTests</AssemblyName>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Domain\OmniManage.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Infrastructure\OmniManage.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Finance\OmniManage.Modules.Finance.Application\OmniManage.Modules.Finance.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Finance\OmniManage.Modules.Finance.Domain\OmniManage.Modules.Finance.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Finance\OmniManage.Modules.Finance.Infrastructure\OmniManage.Modules.Finance.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Sales\OmniManage.Modules.Sales.Contracts\OmniManage.Modules.Sales.Contracts.csproj" />
+  </ItemGroup>
+</Project>

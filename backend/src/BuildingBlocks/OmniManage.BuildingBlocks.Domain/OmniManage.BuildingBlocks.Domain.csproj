@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.BuildingBlocks.Domain</RootNamespace>
+    <AssemblyName>OmniManage.BuildingBlocks.Domain</AssemblyName>
+  </PropertyGroup>
+</Project>

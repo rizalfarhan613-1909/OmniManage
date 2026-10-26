@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Sales.Infrastructure</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Sales.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Infrastructure\OmniManage.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Sales.Application\OmniManage.Modules.Sales.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Sales.Contracts\OmniManage.Modules.Sales.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Sales.Domain\OmniManage.Modules.Sales.Domain.csproj" />
+  </ItemGroup>
+</Project>

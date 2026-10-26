@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.MasterData.UnitTests</RootNamespace>
+    <AssemblyName>OmniManage.Modules.MasterData.UnitTests</AssemblyName>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Domain\OmniManage.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BuildingBlocks\OmniManage.BuildingBlocks.Infrastructure\OmniManage.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\MasterData\OmniManage.Modules.MasterData.Application\OmniManage.Modules.MasterData.Application.csproj" />
+    <ProjectReference Include="..\..\src\Modules\MasterData\OmniManage.Modules.MasterData.Domain\OmniManage.Modules.MasterData.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Modules\MasterData\OmniManage.Modules.MasterData.Infrastructure\OmniManage.Modules.MasterData.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

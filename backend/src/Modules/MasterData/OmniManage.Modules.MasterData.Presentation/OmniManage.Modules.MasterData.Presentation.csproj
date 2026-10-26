@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.MasterData.Presentation</RootNamespace>
+    <AssemblyName>OmniManage.Modules.MasterData.Presentation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\Platform\OmniManage.Modules.Platform.Contracts\OmniManage.Modules.Platform.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.MasterData.Application\OmniManage.Modules.MasterData.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.MasterData.Contracts\OmniManage.Modules.MasterData.Contracts.csproj" />
+  </ItemGroup>
+</Project>

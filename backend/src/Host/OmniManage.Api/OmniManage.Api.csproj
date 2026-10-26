@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Api</RootNamespace>
+    <AssemblyName>OmniManage.Api</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Settings.Configuration" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\OmniManage.BuildingBlocks.Domain\OmniManage.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\OmniManage.BuildingBlocks.Infrastructure\OmniManage.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\AssetMaintenance\OmniManage.Modules.AssetMaintenance.Infrastructure\OmniManage.Modules.AssetMaintenance.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\AssetMaintenance\OmniManage.Modules.AssetMaintenance.Presentation\OmniManage.Modules.AssetMaintenance.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Finance\OmniManage.Modules.Finance.Infrastructure\OmniManage.Modules.Finance.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Finance\OmniManage.Modules.Finance.Presentation\OmniManage.Modules.Finance.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Hris\OmniManage.Modules.Hris.Infrastructure\OmniManage.Modules.Hris.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Hris\OmniManage.Modules.Hris.Presentation\OmniManage.Modules.Hris.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventory\OmniManage.Modules.Inventory.Infrastructure\OmniManage.Modules.Inventory.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Inventory\OmniManage.Modules.Inventory.Presentation\OmniManage.Modules.Inventory.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Manufacturing\OmniManage.Modules.Manufacturing.Infrastructure\OmniManage.Modules.Manufacturing.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Manufacturing\OmniManage.Modules.Manufacturing.Presentation\OmniManage.Modules.Manufacturing.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\MasterData\OmniManage.Modules.MasterData.Infrastructure\OmniManage.Modules.MasterData.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\MasterData\OmniManage.Modules.MasterData.Presentation\OmniManage.Modules.MasterData.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Platform\OmniManage.Modules.Platform.Infrastructure\OmniManage.Modules.Platform.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Platform\OmniManage.Modules.Platform.Presentation\OmniManage.Modules.Platform.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Procurement\OmniManage.Modules.Procurement.Infrastructure\OmniManage.Modules.Procurement.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Procurement\OmniManage.Modules.Procurement.Presentation\OmniManage.Modules.Procurement.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Projects\OmniManage.Modules.Projects.Infrastructure\OmniManage.Modules.Projects.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Projects\OmniManage.Modules.Projects.Presentation\OmniManage.Modules.Projects.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Sales\OmniManage.Modules.Sales.Infrastructure\OmniManage.Modules.Sales.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Sales\OmniManage.Modules.Sales.Presentation\OmniManage.Modules.Sales.Presentation.csproj" />
+  </ItemGroup>
+</Project>

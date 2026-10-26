@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Manufacturing.Infrastructure</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Manufacturing.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Contracts\OmniManage.BuildingBlocks.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Infrastructure\OmniManage.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Manufacturing.Application\OmniManage.Modules.Manufacturing.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Manufacturing.Contracts\OmniManage.Modules.Manufacturing.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Manufacturing.Domain\OmniManage.Modules.Manufacturing.Domain.csproj" />
+  </ItemGroup>
+</Project>

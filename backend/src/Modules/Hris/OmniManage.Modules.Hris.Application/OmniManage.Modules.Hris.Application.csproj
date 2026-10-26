@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>OmniManage.Modules.Hris.Application</RootNamespace>
+    <AssemblyName>OmniManage.Modules.Hris.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\OmniManage.BuildingBlocks.Application\OmniManage.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Hris.Contracts\OmniManage.Modules.Hris.Contracts.csproj" />
+    <ProjectReference Include="..\OmniManage.Modules.Hris.Domain\OmniManage.Modules.Hris.Domain.csproj" />
+  </ItemGroup>
+</Project>
