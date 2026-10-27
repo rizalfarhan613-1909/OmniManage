@@ -18,11 +18,12 @@ type Props = {
 };
 
 const TONE_CLASSES: Record<StatusTone, string> = {
-  success: 'border-mint-accent bg-mint-accent text-charcoal',
-  info: 'border-teal-primary/50 bg-teal-primary/15 text-charcoal',
+  success:
+    'border-mint-accent bg-mint-accent text-on-accent dark:bg-mint-accent/15 dark:text-mint-accent',
+  info: 'border-teal-primary/50 bg-teal-primary/15 text-charcoal-strong',
   warning: 'border-warning/40 bg-warning/10 text-warning',
   danger: 'border-danger/40 bg-danger/10 text-danger',
-  neutral: 'border-sage bg-sage text-charcoal',
+  neutral: 'border-line bg-surface-muted text-charcoal',
 };
 
 const TONE_ICONS: Record<StatusTone, LucideIcon> = {

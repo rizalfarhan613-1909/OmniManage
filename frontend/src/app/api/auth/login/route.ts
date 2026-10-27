@@ -7,6 +7,7 @@ import { API_ERROR_CODES } from '@/lib/api/errors';
 import type { ApiResponse } from '@/lib/api/types';
 import type { Session } from '@/lib/auth/types';
 import { loginRequestSchema } from '@/features/auth/schemas/login.schema';
+import { NEXT_LOCALE_COOKIE, acceptLanguageFor, resolveLocale } from '@/lib/i18n';
 import { t } from '@/lib/i18n';
 
 /**
@@ -34,7 +35,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return validationError(parsed.error);
   }
 
-  const result = await backendLogin(parsed.data);
+  const locale = resolveLocale(request.cookies.get(NEXT_LOCALE_COOKIE)?.value);
+  const result = await backendLogin(parsed.data, acceptLanguageFor(locale));
 
   if (!result.envelope.success) {
     return NextResponse.json<ApiResponse<never>>(result.envelope, {

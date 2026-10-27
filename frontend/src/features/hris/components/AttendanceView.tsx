@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { Plus, Clock } from 'lucide-react';
 import { useState } from 'react';
 
@@ -15,7 +17,7 @@ import { useGetAttendanceLogs } from '@/features/hris/api/useGetAttendanceLogs';
 import { useClockIn } from '@/features/hris/api/useClockIn';
 import type { AttendanceLogDto, AttendanceStatus, ClockInRequest } from '@/features/hris/types';
 import { toSortParam, type SortState } from '@/lib/api/pagination';
-import { t, type TranslationKey } from '@/lib/i18n';
+import type { TranslationKey } from '@/lib/i18n';
 import { formatDateTime } from '@/lib/utils/format';
 
 import { ClockInDialog } from './ClockInDialog';
@@ -32,6 +34,7 @@ const STATUS_LABEL = {
   ClockedOut: 'hris.attendance.status.clockedOut',
 } as const;
 export function AttendanceView() {
+  const { t } = useI18n();
   const session = useSession();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ field: 'clockInUtc', direction: 'desc' });

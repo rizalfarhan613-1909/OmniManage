@@ -3,11 +3,16 @@ import type { Metadata } from 'next';
 import { ModuleGuard } from '@/components/shared/ModuleGuard';
 import { MODULE_CODES } from '@/config/module-codes';
 import { PERMISSIONS } from '@/config/permissions';
-import { t } from '@/lib/i18n';
+import { translate } from '@/lib/i18n';
+import { getRequestLocale } from '@/lib/i18n/server';
 
 import { TasksView } from '@/features/projects/components/TasksView';
 
-export const metadata: Metadata = { title: t('projects.tasks.title') };
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+
+  return { title: translate(locale, 'projects.tasks.title') };
+}
 
 export default function TasksPage() {
   return (

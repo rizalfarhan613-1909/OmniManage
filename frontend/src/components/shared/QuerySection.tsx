@@ -3,10 +3,10 @@
 import type { UseQueryResult } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { ApiErrorState } from '@/components/shared/ApiErrorState';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { Button } from '@/components/ui/Button';
-import { t } from '@/lib/i18n';
 
 type Props<TData> = {
   query: Pick<UseQueryResult<TData, Error>, 'isLoading' | 'error' | 'data' | 'refetch'>;
@@ -34,6 +34,8 @@ export function QuerySection<TData>({
   moduleCode,
   children,
 }: Props<TData>) {
+  const { t } = useI18n();
+
   if (query.isLoading) {
     return <>{skeleton}</>;
   }

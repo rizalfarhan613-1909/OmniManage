@@ -9,8 +9,9 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
 import type { ActivityItem, ActivityKind } from '@/features/dashboard/api/types';
-import { t } from '@/lib/i18n';
+import type { TranslationKey } from '@/lib/i18n';
 import { cn } from '@/lib/utils/cn';
 import { formatDateTime, formatMoney, formatRelativeTime } from '@/lib/utils/format';
 
@@ -28,13 +29,13 @@ const ACTIVITY_ICONS: Record<ActivityKind, LucideIcon> = {
 
 const ACTIVITY_STYLES: Record<ActivityKind, string> = {
   salesConfirmed: 'bg-mint-accent text-charcoal',
-  salesDraft: 'bg-sage-light text-charcoal',
+  salesDraft: 'bg-surface-muted text-charcoal',
   invoicePaid: 'bg-mint-accent text-charcoal',
   invoiceUnpaid: 'bg-teal-primary/15 text-charcoal',
   journalPosted: 'bg-teal-primary/15 text-charcoal',
 };
 
-const ACTIVITY_LABELS: Record<ActivityKind, Parameters<typeof t>[0]> = {
+const ACTIVITY_LABELS: Record<ActivityKind, TranslationKey> = {
   salesConfirmed: 'dashboard.activity.salesConfirmed',
   salesDraft: 'dashboard.activity.salesDraft',
   invoicePaid: 'dashboard.activity.invoicePaid',
@@ -43,6 +44,8 @@ const ACTIVITY_LABELS: Record<ActivityKind, Parameters<typeof t>[0]> = {
 };
 
 export function ActivityFeed({ items }: Props) {
+  const { t } = useI18n();
+
   if (items.length === 0) {
     return (
       <p className="py-8 text-center text-sm text-charcoal-light">

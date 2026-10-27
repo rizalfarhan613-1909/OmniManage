@@ -1,8 +1,9 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { Loader2 } from 'lucide-react';
 
-import { t } from '@/lib/i18n';
 import { cn } from '@/lib/utils/cn';
 
 type Props = {
@@ -28,6 +29,7 @@ export function ModuleLicenseSwitch({
   disabled = false,
   onToggle,
 }: Props) {
+  const { t } = useI18n();
   const isDisabled = disabled || isPending;
 
   return (
@@ -49,7 +51,7 @@ export function ModuleLicenseSwitch({
         aria-hidden="true"
         className={cn(
           'relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition-colors duration-300',
-          checked ? 'border-mint-accent bg-mint-accent' : 'border-sage bg-sage',
+          checked ? 'border-mint-accent bg-mint-accent' : 'border-line bg-line',
         )}
       >
         <span

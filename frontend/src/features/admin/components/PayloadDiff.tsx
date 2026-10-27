@@ -1,6 +1,8 @@
+'use client';
+
 import { ChevronRight } from 'lucide-react';
 
-import { t } from '@/lib/i18n';
+import { useI18n } from '@/components/providers/LanguageProvider';
 
 import { buildPayloadDiff } from './payload-diff';
 
@@ -9,9 +11,11 @@ type Props = {
   after: Record<string, unknown> | null;
 };
 
+const EMPTY_VALUE = '\u2014';
+
 function formatValue(value: unknown): string {
   if (value === null || value === undefined) {
-    return t('admin.security.audit.emptyValue');
+    return EMPTY_VALUE;
   }
 
   if (typeof value === 'string') {
@@ -23,7 +27,7 @@ function formatValue(value: unknown): string {
   }
 
   try {
-    return JSON.stringify(value) ?? t('admin.security.audit.emptyValue');
+    return JSON.stringify(value) ?? EMPTY_VALUE;
   } catch {
     return String(value);
   }
@@ -31,6 +35,7 @@ function formatValue(value: unknown): string {
 
 /** Collapsible before/after payload diff for the audit trail. */
 export function PayloadDiff({ before, after }: Props) {
+  const { t } = useI18n();
   const changes = buildPayloadDiff(before, after);
 
   if (changes.length === 0) {
@@ -54,7 +59,7 @@ export function PayloadDiff({ before, after }: Props) {
 
       <dl className="mt-2 max-w-md space-y-2">
         {changes.map((change) => (
-          <div key={change.field} className="rounded-md bg-sage-light/60 px-2.5 py-2">
+          <div key={change.field} className="rounded-md bg-surface-muted/60 px-2.5 py-2">
             <dt className="font-mono text-[11px] font-semibold text-charcoal">{change.field}</dt>
             <dd className="mt-1 grid gap-1.5 sm:grid-cols-2">
               <div className="min-w-0">

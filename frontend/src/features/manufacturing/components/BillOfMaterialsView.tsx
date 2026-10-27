@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { useSession } from '@/components/providers/SessionProvider';
@@ -14,12 +16,13 @@ import { useGetBillOfMaterials } from '@/features/manufacturing/api/useGetBillOf
 import type { BillOfMaterial } from '@/features/manufacturing/api/types';
 import { useItems } from '@/features/masterdata/api/use-items';
 import { MAX_PAGE_SIZE, toSortParam, type SortState } from '@/lib/api/pagination';
-import { t } from '@/lib/i18n';
+
 import { formatDateTime } from '@/lib/utils/format';
 
 const PAGE_SIZE = 10;
 
 export function BillOfMaterialsView() {
+  const { t } = useI18n();
   const session = useSession();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ field: 'code', direction: 'asc' });

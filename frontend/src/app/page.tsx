@@ -1,6 +1,19 @@
-import { redirect } from 'next/navigation';
+import type { Metadata } from 'next';
 
-/** The app shell resolves the role-appropriate workspace; Phase 4A starts at BI. */
-export default function RootPage() {
-  redirect('/dashboard');
+import { LandingView } from '@/features/marketing/components/LandingView';
+import { translate } from '@/lib/i18n';
+import { getRequestLocale } from '@/lib/i18n/server';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+
+  return {
+    title: translate(locale, 'landing.meta.title'),
+    description: translate(locale, 'landing.meta.description'),
+    robots: { index: true, follow: true },
+  };
+}
+
+export default function LandingPage() {
+  return <LandingView />;
 }

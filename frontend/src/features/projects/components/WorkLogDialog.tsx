@@ -1,10 +1,12 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Input } from '@/components/ui/Input';
-import { t } from '@/lib/i18n';
+
 import { toDateOnlyString } from '@/lib/utils/date';
 import type { RecordWorkLogRequest } from '../types';
 
@@ -27,6 +29,7 @@ export function WorkLogDialog({
   onConfirm,
   onCancel,
 }: Props) {
+  const { t } = useI18n();
   const [formData, setFormData] = useState<RecordWorkLogRequest>({
     employeeId: '',
     loggedDate: toDateOnlyString(),
@@ -125,7 +128,7 @@ export function WorkLogDialog({
             id="completeTask"
             checked={formData.completeTask}
             onChange={(e) => setFormData({ ...formData, completeTask: e.target.checked })}
-            className="h-4 w-4 rounded border-gray-300 text-mint-accent focus:ring-mint-accent"
+            className="mt-0.5 h-4 w-4 rounded border-line text-cyan accent-teal-primary"
           />
           <label htmlFor="completeTask" className="text-sm text-charcoal">
             {t('projects.tasks.workLog.completeTask')}

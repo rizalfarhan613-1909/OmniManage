@@ -1,11 +1,13 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Input } from '@/components/ui/Input';
 import type { Item } from '@/features/masterdata/api/types';
-import { t, type TranslationKey } from '@/lib/i18n';
+import type { TranslationKey } from '@/lib/i18n';
 
 import type { AdjustStockRequest, MovementType, Warehouse } from '../api/types';
 
@@ -29,7 +31,7 @@ const MOVEMENT_OPTIONS: readonly { value: MovementType; labelKey: TranslationKey
 ];
 
 const SELECT_CLASS =
-  'h-10 w-full rounded-md border border-sage bg-surface px-3 text-sm text-charcoal shadow-sm focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
+  'h-10 w-full rounded-md border border-line bg-surface px-3 text-sm text-charcoal shadow-sm focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
 
 export function AdjustStockDialog({
   isOpen,
@@ -42,6 +44,7 @@ export function AdjustStockDialog({
   onConfirm,
   onCancel,
 }: Props) {
+  const { t } = useI18n();
   const [warehouseId, setWarehouseId] = useState(initialWarehouseId);
   const [itemId, setItemId] = useState(initialItemId);
   const [movementType, setMovementType] = useState<MovementType>('Adjustment');

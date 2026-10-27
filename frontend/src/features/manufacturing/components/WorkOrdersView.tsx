@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { CheckCircle2, Plus } from 'lucide-react';
 import { useState } from 'react';
 
@@ -22,7 +24,7 @@ import type {
 } from '@/features/manufacturing/api/types';
 import { useItems } from '@/features/masterdata/api/use-items';
 import { MAX_PAGE_SIZE, toSortParam, type SortState } from '@/lib/api/pagination';
-import { t } from '@/lib/i18n';
+
 import { formatDate, formatDateTime, formatQuantity } from '@/lib/utils/format';
 
 import { CreateWorkOrderDialog } from './CreateWorkOrderDialog';
@@ -46,6 +48,7 @@ const STATUS_LABEL = {
 } as const;
 
 export function WorkOrdersView() {
+  const { t } = useI18n();
   const session = useSession();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ field: 'createdAt', direction: 'desc' });

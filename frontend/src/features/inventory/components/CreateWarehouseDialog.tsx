@@ -1,10 +1,11 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Input } from '@/components/ui/Input';
-import { t } from '@/lib/i18n';
 
 import type { CreateWarehouseRequest } from '../api/types';
 
@@ -25,6 +26,7 @@ type WarehouseForm = {
 const INITIAL_FORM: WarehouseForm = { code: '', name: '', address: '' };
 
 export function CreateWarehouseDialog({ isOpen, isPending, error, onConfirm, onCancel }: Props) {
+  const { t } = useI18n();
   const [formData, setFormData] = useState<WarehouseForm>(INITIAL_FORM);
 
   const submit = () => {

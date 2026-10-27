@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useMemo, useState } from 'react';
 
 import { useSession } from '@/components/providers/SessionProvider';
@@ -17,7 +19,7 @@ import { useJournalEntries } from '@/features/finance/api/use-journal-entries';
 import type { ArInvoice, ArInvoiceStatus, JournalEntry } from '@/features/finance/api/types';
 import { useBusinessPartners } from '@/features/masterdata/api/use-business-partners';
 import { MAX_PAGE_SIZE, toSortParam, type SortState } from '@/lib/api/pagination';
-import { t } from '@/lib/i18n';
+
 import { formatCount, formatDateTime, formatMoney } from '@/lib/utils/format';
 
 const PAGE_SIZE = 10;
@@ -35,6 +37,7 @@ const INVOICE_LABEL = {
 } as const;
 
 export function FinanceView() {
+  const { t } = useI18n();
   const session = useSession();
   const [invoicePage, setInvoicePage] = useState(1);
   const [invoiceSort, setInvoiceSort] = useState<SortState>({

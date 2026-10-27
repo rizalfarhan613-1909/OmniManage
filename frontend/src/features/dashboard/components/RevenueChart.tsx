@@ -11,9 +11,9 @@ import {
   YAxis,
 } from 'recharts';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { CHART_COLORS } from '@/config/chart-colors';
 import type { RevenuePoint } from '@/features/dashboard/api/types';
-import { t } from '@/lib/i18n';
 import { formatCompactMoney, formatMoney } from '@/lib/utils/format';
 
 type Props = {
@@ -27,6 +27,7 @@ type Props = {
  * A visually hidden table mirrors the data for screen readers.
  */
 export function RevenueChart({ data, showRevenue, showCashFlow }: Props) {
+  const { t } = useI18n();
   const instanceId = useId().replace(/:/g, '');
   const revenueGradientId = `revenue-gradient-${instanceId}`;
   const cashGradientId = `cash-gradient-${instanceId}`;

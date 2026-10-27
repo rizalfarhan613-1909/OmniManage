@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { CheckCircle2, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 
@@ -21,7 +23,7 @@ import type {
   AuditLogEntry,
 } from '@/features/admin/api/types';
 import { toSortParam, type SortState } from '@/lib/api/pagination';
-import { t, type TranslationKey } from '@/lib/i18n';
+import type { TranslationKey } from '@/lib/i18n';
 import { formatDateTime } from '@/lib/utils/format';
 
 import { PayloadDiff } from './PayloadDiff';
@@ -45,11 +47,12 @@ const SESSION_STATUS_LABEL: Record<ActiveSessionStatus, TranslationKey> = {
   Idle: 'admin.security.sessions.status.idle',
 };
 
-function sessionUserLabel(session: ActiveUserSession): string {
-  return session.userName || session.email || t('admin.security.sessions.unknownUser');
+function sessionUserLabel(session: ActiveUserSession, unknownLabel: string): string {
+  return session.userName || session.email || unknownLabel;
 }
 
 export function AuditSecurityView() {
+  const { t } = useI18n();
   const [page, setPage] = useState(1);
   const [sessionPage, setSessionPage] = useState(1);
   const [sort, setSort] = useState<SortState>({
@@ -150,7 +153,9 @@ export function AuditSecurityView() {
       header: t('admin.security.sessions.user'),
       cell: (session) => (
         <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-charcoal">{sessionUserLabel(session)}</p>
+          <p className="truncate text-sm font-medium text-charcoal">
+            {sessionUserLabel(session, t('admin.security.sessions.unknownUser'))}
+          </p>
           <p className="mt-0.5 truncate text-xs text-charcoal-light">{session.email}</p>
         </div>
       ),
@@ -215,7 +220,7 @@ export function AuditSecurityView() {
           size="sm"
           variant="danger"
           aria-label={t('admin.security.sessions.terminateLabel', {
-            user: sessionUserLabel(session),
+            user: sessionUserLabel(session, t('admin.security.sessions.unknownUser')),
           })}
           onClick={() => {
             terminateMutation.reset();
@@ -233,7 +238,10 @@ export function AuditSecurityView() {
       return;
     }
 
-    const userLabel = sessionUserLabel(sessionToTerminate);
+    const userLabel = sessionUserLabel(
+      sessionToTerminate,
+      t('admin.security.sessions.unknownUser'),
+    );
 
     terminateMutation.mutate(sessionToTerminate.id, {
       onSuccess: () => {
@@ -353,7 +361,10 @@ export function AuditSecurityView() {
         title={
           sessionToTerminate
             ? t('admin.security.sessions.terminateTitle', {
-                user: sessionUserLabel(sessionToTerminate),
+                user: sessionUserLabel(
+                  sessionToTerminate,
+                  t('admin.security.sessions.unknownUser'),
+                ),
               })
             : ''
         }

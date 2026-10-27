@@ -2,9 +2,9 @@
 
 import { useEffect, useId, useRef, type ReactNode } from 'react';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { ErrorState } from '@/components/shared/ErrorState';
 import { Button } from '@/components/ui/Button';
-import { t } from '@/lib/i18n';
 import { cn } from '@/lib/utils/cn';
 
 type Props = {
@@ -46,6 +46,7 @@ export function ConfirmDialog({
   onConfirm,
   onCancel,
 }: Props) {
+  const { t } = useI18n();
   const dialogRef = useRef<HTMLDivElement>(null);
   const cancelRef = useRef<HTMLButtonElement>(null);
   const onCancelRef = useRef(onCancel);
@@ -127,7 +128,7 @@ export function ConfirmDialog({
         aria-describedby={descriptionId}
         aria-busy={isPending}
         className={cn(
-          'w-full max-w-lg rounded-lg border border-sage bg-surface p-6 shadow-md',
+          'w-full max-w-lg rounded-lg border border-line bg-surface p-6 shadow-md',
           'dialog-enter',
         )}
       >
@@ -155,7 +156,7 @@ export function ConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={isPending}
-            className="inline-flex h-10 items-center justify-center rounded-md border border-sage bg-surface px-4 text-sm font-medium text-charcoal transition-colors duration-300 hover:bg-sage-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex h-10 items-center justify-center rounded-md border border-line bg-surface px-4 text-sm font-medium text-charcoal transition-colors duration-300 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {cancelLabel}
           </button>

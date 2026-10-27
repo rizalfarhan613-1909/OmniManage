@@ -1,10 +1,12 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Input } from '@/components/ui/Input';
-import { t } from '@/lib/i18n';
+
 import type { CreateTaskRequest } from '../types';
 
 type Props = {
@@ -23,6 +25,7 @@ type TaskForm = {
 };
 
 export function CreateTaskDialog({ isOpen, isPending, error, onConfirm, onCancel }: Props) {
+  const { t } = useI18n();
   const [formData, setFormData] = useState<TaskForm>({
     projectId: '',
     title: '',

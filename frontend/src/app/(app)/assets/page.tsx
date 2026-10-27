@@ -3,9 +3,14 @@ import type { Metadata } from 'next';
 import { ModuleGuard } from '@/components/shared/ModuleGuard';
 import { ModuleOverview } from '@/components/shared/ModuleOverview';
 import { MODULE_CODES } from '@/config/module-codes';
-import { t } from '@/lib/i18n';
+import { translate } from '@/lib/i18n';
+import { getRequestLocale } from '@/lib/i18n/server';
 
-export const metadata: Metadata = { title: t('nav.assets') };
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+
+  return { title: translate(locale, 'nav.assets') };
+}
 
 /** Mirrors `[RequireModule(ModuleCodes.AssetCore)]` on the Assets controllers. */
 export default function AssetsPage() {

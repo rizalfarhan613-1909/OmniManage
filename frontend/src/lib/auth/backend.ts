@@ -88,10 +88,11 @@ async function callBackend<T>(path: string, init: RequestInit): Promise<BackendR
 
 export function backendLogin(
   payload: LoginRequestBody,
+  acceptLanguage = 'en-US,en;q=0.9,id;q=0.8',
 ): Promise<BackendResponse<BackendLoginPayload>> {
   return callBackend<BackendLoginPayload>('/api/v1/auth/login', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Accept-Language': acceptLanguage },
     body: JSON.stringify(payload),
   });
 }

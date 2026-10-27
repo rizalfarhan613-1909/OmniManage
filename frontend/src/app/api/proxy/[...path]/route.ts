@@ -11,6 +11,7 @@ import { assertSameOrigin, envelopeError, unauthenticated } from '@/lib/api/bff'
 import { API_ERROR_CODES } from '@/lib/api/errors';
 import type { ApiResponse } from '@/lib/api/types';
 import type { BackendLoginPayload } from '@/lib/auth/backend';
+import { NEXT_LOCALE_COOKIE, acceptLanguageFor, resolveLocale } from '@/lib/i18n';
 import { t } from '@/lib/i18n';
 
 interface RouteContext {
@@ -37,6 +38,11 @@ function forwardHeaders(request: NextRequest): HeadersInit {
       headers[name] = value;
     }
   }
+
+  // The UI locale (not the browser's OS language) drives backend localisation.
+  // `NEXT_LOCALE` is set by LanguageProvider whenever the user switches.
+  const locale = resolveLocale(request.cookies.get(NEXT_LOCALE_COOKIE)?.value);
+  headers['accept-language'] = acceptLanguageFor(locale);
 
   return headers;
 }

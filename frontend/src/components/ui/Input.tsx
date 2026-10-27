@@ -20,7 +20,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
       aria-invalid={hasError || undefined}
       className={cn(
         'h-10 w-full rounded-md border bg-surface px-3 text-base text-charcoal shadow-sm placeholder:text-charcoal-light focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary',
-        hasError ? 'border-danger' : 'border-sage',
+        hasError ? 'border-danger' : 'border-line',
         className,
       )}
       {...props}

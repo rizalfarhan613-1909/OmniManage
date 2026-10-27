@@ -3,8 +3,8 @@
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useId, type ReactNode } from 'react';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { Button } from '@/components/ui/Button';
-import { t } from '@/lib/i18n';
 import type { SortState } from '@/lib/api/pagination';
 import { cn } from '@/lib/utils/cn';
 import { formatCount } from '@/lib/utils/format';
@@ -79,6 +79,7 @@ export function DataTable<TRow>({
   className,
 }: Props<TRow>) {
   const captionId = useId();
+  const { t } = useI18n();
 
   if (isLoading) {
     return <TableSkeleton columns={columns.length} />;
@@ -86,7 +87,7 @@ export function DataTable<TRow>({
 
   if (data.length === 0) {
     return (
-      <div className={cn('rounded-lg border border-sage bg-surface', className)}>
+      <div className={cn('rounded-lg border border-line bg-surface', className)}>
         {emptyState ?? (
           <p className="px-6 py-14 text-center text-sm text-charcoal-light">{t('table.empty')}</p>
         )}
@@ -104,18 +105,18 @@ export function DataTable<TRow>({
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-lg border border-sage bg-surface shadow-sm',
+        'overflow-hidden rounded-lg border border-line bg-surface shadow-sm',
         className,
       )}
     >
-      {toolbar ? <div className="border-b border-sage px-4 py-3">{toolbar}</div> : null}
+      {toolbar ? <div className="border-b border-line px-4 py-3">{toolbar}</div> : null}
 
       <div className="overflow-x-auto">
         <table aria-labelledby={captionId} className="w-full min-w-[640px] border-collapse text-sm">
           <caption id={captionId} className="sr-only">
             {caption}
           </caption>
-          <thead className="bg-sage-light/70">
+          <thead className="bg-surface-muted/70">
             <tr>
               {columns.map((column) => {
                 const align = column.align ?? 'left';
@@ -134,7 +135,7 @@ export function DataTable<TRow>({
                     scope="col"
                     aria-sort={ariaSort}
                     className={cn(
-                      'whitespace-nowrap border-b border-sage px-4 py-3 text-xs font-semibold uppercase tracking-wide text-charcoal-light',
+                      'whitespace-nowrap border-b border-line px-4 py-3 text-xs font-semibold uppercase tracking-wide text-charcoal-light',
                       ALIGN_CLASSES[align],
                       column.headerClassName,
                     )}
@@ -178,13 +179,13 @@ export function DataTable<TRow>({
             {data.map((row) => (
               <tr
                 key={getRowId(row)}
-                className="border-b border-sage/60 transition-colors duration-300 last:border-b-0 hover:bg-sage-light/50"
+                className="border-b border-line/60 transition-colors duration-300 last:border-b-0 hover:bg-surface-muted/50"
               >
                 {columns.map((column) => (
                   <td
                     key={column.id}
                     className={cn(
-                      'border-b border-sage/40 px-4 py-3 align-middle text-charcoal',
+                      'border-b border-line/40 px-4 py-3 align-middle text-charcoal',
                       ALIGN_CLASSES[column.align ?? 'left'],
                       column.className,
                     )}
@@ -201,7 +202,7 @@ export function DataTable<TRow>({
       {pagination ? (
         <nav
           aria-label={t('table.pagination.label')}
-          className="flex flex-col gap-3 border-t border-sage px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-col gap-3 border-t border-line px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
         >
           <p className="text-xs tabular-nums text-charcoal-light">
             {t('table.pagination.showing', {

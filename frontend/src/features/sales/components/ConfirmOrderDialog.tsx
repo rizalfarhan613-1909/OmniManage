@@ -1,8 +1,9 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import type { SalesOrder } from '@/features/sales/api/types';
-import { t } from '@/lib/i18n';
 
 type Props = {
   isOpen: boolean;
@@ -22,6 +23,7 @@ export function ConfirmOrderDialog({
   onConfirm,
   onCancel,
 }: Props) {
+  const { t } = useI18n();
   return (
     <ConfirmDialog
       isOpen={isOpen}

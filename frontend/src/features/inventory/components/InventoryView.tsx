@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { ArrowLeftRight, Boxes, MapPin, Plus } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
@@ -25,7 +27,7 @@ import type {
 } from '@/features/inventory/api/types';
 import { useItems } from '@/features/masterdata/api/use-items';
 import { MAX_PAGE_SIZE } from '@/lib/api/pagination';
-import { t } from '@/lib/i18n';
+
 import { formatDateTime, formatQuantity } from '@/lib/utils/format';
 
 import { AdjustStockDialog } from './AdjustStockDialog';
@@ -39,6 +41,7 @@ type AdjustTarget = {
 };
 
 export function InventoryView() {
+  const { t } = useI18n();
   const session = useSession();
   const [page, setPage] = useState(1);
   const [warehouseId, setWarehouseId] = useState('');
@@ -260,7 +263,7 @@ export function InventoryView() {
                 {data.items.map((warehouse) => (
                   <li
                     key={warehouse.id}
-                    className="flex flex-col rounded-lg border border-sage bg-surface p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                    className="flex flex-col rounded-lg border border-line bg-surface p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
@@ -331,7 +334,7 @@ export function InventoryView() {
                     setWarehouseId(event.target.value);
                     setPage(1);
                   }}
-                  className="mt-1 h-10 w-full rounded-md border border-sage bg-surface px-3 text-sm text-charcoal shadow-sm focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary"
+                  className="mt-1 h-10 w-full rounded-md border border-line bg-surface px-3 text-sm text-charcoal shadow-sm focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary"
                 >
                   <option value="">{t('inventory.stock.filter.all')}</option>
                   {warehouses.map((warehouse) => (
@@ -371,7 +374,7 @@ export function InventoryView() {
         </QuerySection>
       </section>
 
-      <div className="flex items-center gap-2 rounded-lg border border-sage bg-surface px-4 py-3 text-xs text-charcoal-light">
+      <div className="flex items-center gap-2 rounded-lg border border-line bg-surface px-4 py-3 text-xs text-charcoal-light">
         <Boxes className="h-4 w-4 text-teal-primary" aria-hidden="true" />
         <p>{t('inventory.stock.ledgerNote')}</p>
       </div>

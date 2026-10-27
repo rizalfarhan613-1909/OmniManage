@@ -3,6 +3,7 @@
 import { CheckCircle2, Layers } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { ApiErrorState } from '@/components/shared/ApiErrorState';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { DataTable, type DataTableColumn } from '@/components/shared/DataTable';
@@ -22,7 +23,7 @@ import { getModuleLabel } from '@/config/module-labels';
 import { useTenants } from '@/features/admin/api/use-tenants';
 import { useToggleTenantModule } from '@/features/admin/api/use-toggle-tenant-module';
 import type { TenantStatus, TenantSummary } from '@/features/admin/api/types';
-import { t, type TranslationKey } from '@/lib/i18n';
+import type { TranslationKey } from '@/lib/i18n';
 import { cn } from '@/lib/utils/cn';
 import { formatCount } from '@/lib/utils/format';
 
@@ -48,6 +49,7 @@ type PendingDisable = {
 };
 
 export function LicensingView() {
+  const { t } = useI18n();
   const [page, setPage] = useState(1);
   const [selectedTenantId, setSelectedTenantId] = useState<string | null>(null);
   const [pendingModuleCode, setPendingModuleCode] = useState<string | null>(null);
@@ -160,7 +162,7 @@ export function LicensingView() {
       id: 'planCode',
       header: t('admin.licensing.tenants.plan'),
       cell: (tenant) => (
-        <span className="inline-flex rounded-full border border-sage bg-sage-light px-2.5 py-0.5 text-xs font-medium text-charcoal">
+        <span className="inline-flex rounded-full border border-line bg-surface-muted px-2.5 py-0.5 text-xs font-medium text-charcoal">
           {tenant.planCode}
         </span>
       ),
@@ -303,11 +305,11 @@ export function LicensingView() {
                         <section
                           key={group}
                           aria-labelledby={headingId}
-                          className="overflow-hidden rounded-lg border border-sage bg-surface shadow-sm"
+                          className="overflow-hidden rounded-lg border border-line bg-surface shadow-sm"
                         >
                           <h3
                             id={headingId}
-                            className="border-b border-sage bg-sage-light/60 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-charcoal-light"
+                            className="border-b border-line bg-surface-muted/60 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-charcoal-light"
                           >
                             {t(MODULE_GROUP_LABEL_KEYS[group])}
                           </h3>
@@ -331,7 +333,7 @@ export function LicensingView() {
                                       <p className="text-sm font-medium text-charcoal">
                                         {t(getModuleLabel(module.code))}
                                       </p>
-                                      <code className="rounded-sm bg-sage-light px-1.5 py-0.5 font-mono text-[11px] text-charcoal-light">
+                                      <code className="rounded-sm bg-surface-muted px-1.5 py-0.5 font-mono text-[11px] text-charcoal-light">
                                         {module.code}
                                       </code>
                                     </div>
@@ -425,7 +427,7 @@ export function LicensingView() {
           placeholder={t('admin.licensing.disable.reasonLabel')}
           className={cn(
             'mt-1 w-full rounded-md border bg-surface px-3 py-2 text-base text-charcoal shadow-sm placeholder:text-charcoal-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary',
-            hasReasonError ? 'border-danger' : 'border-sage',
+            hasReasonError ? 'border-danger' : 'border-line',
           )}
         />
         <p
@@ -460,6 +462,7 @@ function ModuleLicenseSwitchRow({
   isDisabled,
   onToggle,
 }: SwitchRowProps) {
+  const { t } = useI18n();
   const label = t('admin.licensing.matrix.toggleLabel', {
     module: t(getModuleLabel(module.code)),
     tenant: tenant.name,

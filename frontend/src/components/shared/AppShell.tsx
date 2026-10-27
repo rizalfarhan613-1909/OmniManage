@@ -2,11 +2,11 @@
 
 import { useMemo, useState, type ReactNode } from 'react';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { useSession } from '@/components/providers/SessionProvider';
 import { DynamicSidebar } from '@/components/shared/DynamicSidebar';
 import { Topbar } from '@/components/shared/Topbar';
 import { NAVIGATION_REGISTRY } from '@/config/navigation.registry';
-import { t } from '@/lib/i18n';
 import { buildSidebar } from '@/lib/navigation/buildSidebar';
 import { useSidebarPreference } from '@/lib/navigation/useSidebarPreference';
 
@@ -16,6 +16,7 @@ type Props = {
 
 /** Main app shell: charcoal sidebar (264px ↔ 72px) + topbar + content area. */
 export function AppShell({ children }: Props) {
+  const { t } = useI18n();
   const session = useSession();
   const { isCollapsed, toggleCollapsed } = useSidebarPreference();
   const [isMobileOpen, setIsMobileOpen] = useState(false);

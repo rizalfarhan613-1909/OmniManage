@@ -3,11 +3,16 @@ import type { Metadata } from 'next';
 import { ModuleGuard } from '@/components/shared/ModuleGuard';
 import { MODULE_CODES } from '@/config/module-codes';
 import { PERMISSIONS } from '@/config/permissions';
-import { t } from '@/lib/i18n';
+import { translate } from '@/lib/i18n';
+import { getRequestLocale } from '@/lib/i18n/server';
 
 import { AttendanceView } from '@/features/hris/components/AttendanceView';
 
-export const metadata: Metadata = { title: t('hris.attendance.title') };
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+
+  return { title: translate(locale, 'hris.attendance.title') };
+}
 
 /** Mirrors `[RequireModule(ModuleCodes.HrisAttendance)]` on the controller. */
 export default function AttendancePage() {

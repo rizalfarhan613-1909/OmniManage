@@ -17,7 +17,7 @@ export function ChartCard({ title, description, action, footer, children, classN
     <section
       aria-label={title}
       className={cn(
-        'flex h-full flex-col rounded-lg border border-sage bg-surface p-5 shadow-sm',
+        'flex h-full flex-col rounded-lg border border-line bg-surface p-5 shadow-sm',
         className,
       )}
     >
@@ -31,7 +31,7 @@ export function ChartCard({ title, description, action, footer, children, classN
         {action ? <div className="shrink-0">{action}</div> : null}
       </div>
       <div className="mt-5 min-w-0 flex-1">{children}</div>
-      {footer ? <div className="mt-4 border-t border-sage pt-3">{footer}</div> : null}
+      {footer ? <div className="mt-4 border-t border-line pt-3">{footer}</div> : null}
     </section>
   );
 }

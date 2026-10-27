@@ -1,10 +1,12 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Input } from '@/components/ui/Input';
-import { t } from '@/lib/i18n';
+
 import type { RequestMaintenanceRequest } from '../types';
 
 type Props = {
@@ -26,6 +28,7 @@ export function MaintenanceDialog({
   onConfirm,
   onCancel,
 }: Props) {
+  const { t } = useI18n();
   const [formData, setFormData] = useState<RequestMaintenanceRequest>(() => ({
     requestNumber: `MNT-${Date.now()}`,
     scheduledDate: null,

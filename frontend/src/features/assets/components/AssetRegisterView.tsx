@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { Plus, Wrench, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -21,7 +23,7 @@ import type {
   CreateAssetRequest,
 } from '@/features/assets/types';
 import { toSortParam, type SortState } from '@/lib/api/pagination';
-import { t, type TranslationKey } from '@/lib/i18n';
+import type { TranslationKey } from '@/lib/i18n';
 import { formatMoney } from '@/lib/utils/format';
 
 import { CreateAssetDialog } from './CreateAssetDialog';
@@ -41,6 +43,7 @@ const STATUS_LABEL = {
   Retired: 'assets.register.status.retired',
 } as const;
 export function AssetRegisterView() {
+  const { t } = useI18n();
   const session = useSession();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ field: 'createdAt', direction: 'desc' });

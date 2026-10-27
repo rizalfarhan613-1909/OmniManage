@@ -1,50 +1,105 @@
-/* OmniManage design tokens — source of truth: DESIGN.md §2.2 */
+/* OmniManage design tokens - Google Stitch v4.18.2 enterprise system.
+ *
+ * Adaptive surfaces use RGB triplets so Tailwind can compose them with opacity
+ * modifiers (e.g. `bg-surface/80`) while `.dark` swaps a single set of values.
+ */
 :root {
-  /* Brand Core Custom Palette */
-  --color-teal-primary: #14d6e4; /* Primary Actions, Active Highlights, Key Indicators */
-  --color-mint-secondary: #8affc9; /* Success States, Active Toggles, Positive Badges */
-  --color-charcoal-dark: #4a3a3a; /* Dark Sidebars, Primary Text, Dark Cards, Headings */
-  --color-sage-light: #c9dad3; /* Soft Slate/Sage Borders, Neutral Cards, Hover Surfaces */
+  color-scheme: light;
 
-  /* Mapped UI Tokens (Overriding default indigo) */
-  --color-primary-50: #e6fafc;
-  --color-primary-500: #14d6e4;
-  --color-primary-600: #0eb8c4;
-  --color-primary-700: #0a8e98;
+  /* Brand core (fixed across themes) */
+  --color-cyan-primary: #00f2fe; /* Primary actions, active highlights, key indicators */
+  --color-cyan-deep: #0a8e98;
+  --color-aqua: #4facfe;
+  --color-mint-secondary: #8affc9; /* Success states, active toggles, positive badges */
+  --color-forest-dark: #1e2b26; /* Dark sidebars, headings, dark cards */
+  --color-forest-deep: #101a16;
+  --color-sage-light: #dcebe3; /* Soft borders, neutral cards, hover surfaces */
 
+  /* Mapped UI tokens */
+  --color-primary-50: #e8feff;
+  --color-primary-500: #00f2fe;
+  --color-primary-600: #00d6e4;
+  --color-primary-700: #00b3c0;
   --color-accent-mint: #8affc9;
 
-  /* Neutrals */
-  --color-bg: #f4f8f6;
-  --color-surface: #ffffff;
-  --color-surface-dark: #4a3a3a;
-  --color-border: #c9dad3;
-  --color-text: #4a3a3a;
-  --color-text-muted: #6b7c75;
+  /* Adaptive surfaces - light theme */
+  --color-bg-rgb: 244 251 247;
+  --color-surface-rgb: 255 255 255;
+  --color-surface-muted-rgb: 244 251 247;
+  --color-surface-elevated-rgb: 255 255 255;
+  --color-border-rgb: 220 235 227;
+  --color-text-rgb: 30 43 38;
+  --color-text-strong-rgb: 16 26 22;
+  --color-text-muted-rgb: 94 114 105;
+  --color-accent-text-rgb: 10 142 152;
 
-  /* Semantic Alerts */
-  --color-success: #8affc9;
-  --color-warning: #d97706;
-  --color-danger: #ef4444;
-  --color-info: #14d6e4;
+  /* Deep brand surfaces (sidebar, dark CTA panels) */
+  --color-sidebar-rgb: 30 43 38;
+  --color-sidebar-muted-rgb: 220 235 227;
+  --color-sidebar-fg-rgb: 244 251 247;
+
+  /* Semantic alerts */
+  --color-success-rgb: 34 197 94;
+  --color-warning-rgb: 217 119 6;
+  --color-danger-rgb: 239 68 68;
+  --color-info-rgb: 0 214 228;
+
+  /* Charts (Recharts needs concrete values; CSS variables resolve in SVG) */
+  --chart-revenue: #00b9c6;
+  --chart-cash-flow: #1fbf8a;
+  --chart-grid: #dcebe3;
+  --chart-axis: #5e7269;
+  --chart-surface: #ffffff;
+  --chart-text: #1e2b26;
 
   /* Shape & elevation */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --shadow-sm: 0 1px 3px rgba(74, 58, 58, 0.08);
-  --shadow-md: 0 4px 12px rgba(74, 58, 58, 0.12);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgb(16 26 22 / 0.05), 0 1px 3px rgb(16 26 22 / 0.04);
+  --shadow-md: 0 12px 32px -12px rgb(16 26 22 / 0.18), 0 4px 12px rgb(16 26 22 / 0.06);
+
+  /* Decorative */
+  --grid-line: rgb(30 43 38 / 0.045);
 
   /* Layout */
   --sidebar-w: 264px;
-  --sidebar-w-collapsed: 72px;
-  --topbar-h: 56px;
+  --sidebar-w-collapsed: 76px;
+  --topbar-h: 64px;
 }
 
 .dark {
-  --color-bg: #2d2323;
-  --color-surface: #3d3030;
-  --color-border: #5a4848;
-  --color-text: #f4f8f6;
-  --color-text-muted: #c9dad3;
+  color-scheme: dark;
+
+  /* Adaptive surfaces - dark theme (high contrast, low glare) */
+  --color-bg-rgb: 8 15 13;
+  --color-surface-rgb: 19 32 27;
+  --color-surface-muted-rgb: 24 40 34;
+  --color-surface-elevated-rgb: 25 42 35;
+  --color-border-rgb: 48 72 61;
+  --color-text-rgb: 226 240 233;
+  --color-text-strong-rgb: 247 252 249;
+  --color-text-muted-rgb: 156 181 169;
+  --color-accent-text-rgb: 103 232 249;
+
+  --color-sidebar-rgb: 7 13 11;
+  --color-sidebar-muted-rgb: 166 192 180;
+  --color-sidebar-fg-rgb: 240 250 245;
+
+  --color-success-rgb: 74 222 128;
+  --color-warning-rgb: 251 191 36;
+  --color-danger-rgb: 248 113 113;
+  --color-info-rgb: 34 211 238;
+
+  --chart-revenue: #22d3ee;
+  --chart-cash-flow: #6ee7b7;
+  --chart-grid: #2f473c;
+  --chart-axis: #9cb5a9;
+  --chart-surface: #13201b;
+  --chart-text: #e2f0e9;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.45), 0 1px 3px rgb(0 0 0 / 0.35);
+  --shadow-md: 0 16px 40px -12px rgb(0 0 0 / 0.65), 0 4px 12px rgb(0 0 0 / 0.4);
+
+  --grid-line: rgb(230 250 240 / 0.05);
 }

@@ -1,12 +1,14 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Input } from '@/components/ui/Input';
 import type { Item } from '@/features/masterdata/api/types';
 import type { BillOfMaterial, CreateWorkOrderRequest } from '@/features/manufacturing/api/types';
-import { t } from '@/lib/i18n';
+
 import { toDateOnlyString } from '@/lib/utils/date';
 
 type Props = {
@@ -24,10 +26,10 @@ const ORDER_NUMBER_PATTERN = /^[A-Z0-9][A-Z0-9._-]*$/;
 const MAX_QUANTITY = 999_999_999.999999;
 
 const SELECT_CLASS =
-  'h-10 w-full rounded-md border border-sage bg-surface px-3 text-sm text-charcoal shadow-sm focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
+  'h-10 w-full rounded-md border border-line bg-surface px-3 text-sm text-charcoal shadow-sm focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
 
 const TEXTAREA_CLASS =
-  'min-h-20 w-full rounded-md border border-sage bg-surface px-3 py-2 text-sm text-charcoal shadow-sm placeholder:text-charcoal-light focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
+  'min-h-20 w-full rounded-md border border-line bg-surface px-3 py-2 text-sm text-charcoal shadow-sm placeholder:text-charcoal-light focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
 
 export function CreateWorkOrderDialog({
   isOpen,
@@ -39,6 +41,7 @@ export function CreateWorkOrderDialog({
   onConfirm,
   onCancel,
 }: Props) {
+  const { t } = useI18n();
   const [orderNumber, setOrderNumber] = useState('');
   const [billOfMaterialId, setBillOfMaterialId] = useState('');
   const [quantityPlanned, setQuantityPlanned] = useState('');
@@ -176,7 +179,7 @@ export function CreateWorkOrderDialog({
           </span>
           <p
             aria-live="polite"
-            className="rounded-md border border-sage bg-sage-light/40 px-3 py-2 text-sm text-charcoal"
+            className="rounded-md border border-line bg-surface-muted/40 px-3 py-2 text-sm text-charcoal"
           >
             {productLabel || t('manufacturing.create.billOfMaterialPlaceholder')}
           </p>

@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { Plus, Trash2 } from 'lucide-react';
 import { useRef, useState } from 'react';
 
@@ -8,7 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import type { Item } from '@/features/masterdata/api/types';
 import type { CreatePurchaseOrderRequest, Supplier } from '@/features/procurement/api/types';
-import { t } from '@/lib/i18n';
+
 import { toDateOnlyString } from '@/lib/utils/date';
 import { toDecimal } from '@/lib/utils/decimal';
 import { formatMoney } from '@/lib/utils/format';
@@ -42,10 +44,10 @@ type ParsedLine = {
 const ORDER_NUMBER_PATTERN = /^[A-Z0-9][A-Z0-9._-]*$/;
 
 const SELECT_CLASS =
-  'h-10 w-full rounded-md border border-sage bg-surface px-3 text-sm text-charcoal shadow-sm focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
+  'h-10 w-full rounded-md border border-line bg-surface px-3 text-sm text-charcoal shadow-sm focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
 
 const TEXTAREA_CLASS =
-  'min-h-20 w-full rounded-md border border-sage bg-surface px-3 py-2 text-sm text-charcoal shadow-sm placeholder:text-charcoal-light focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
+  'min-h-20 w-full rounded-md border border-line bg-surface px-3 py-2 text-sm text-charcoal shadow-sm placeholder:text-charcoal-light focus-visible:border-teal-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary';
 
 const EMPTY_LINE = { itemId: '', quantity: '', unitPrice: '' } as const;
 
@@ -84,6 +86,7 @@ export function CreatePurchaseOrderDialog({
   onConfirm,
   onCancel,
 }: Props) {
+  const { t } = useI18n();
   const nextLineKey = useRef(1);
   const [orderNumber, setOrderNumber] = useState('');
   const [supplierId, setSupplierId] = useState('');
@@ -255,7 +258,7 @@ export function CreatePurchaseOrderDialog({
             return (
               <div
                 key={line.key}
-                className="space-y-3 rounded-lg border border-sage bg-sage-light/40 p-3"
+                className="space-y-3 rounded-lg border border-line bg-surface-muted/40 p-3"
               >
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-xs font-semibold uppercase tracking-wide text-charcoal-light">
@@ -372,7 +375,7 @@ export function CreatePurchaseOrderDialog({
             {t('procurement.create.addLine')}
           </Button>
 
-          <div className="flex items-center justify-between gap-2 border-t border-sage pt-3 text-sm">
+          <div className="flex items-center justify-between gap-2 border-t border-line pt-3 text-sm">
             <span className="font-medium text-charcoal">{t('procurement.create.total')}</span>
             <span className="font-semibold tabular-nums text-charcoal">{formatMoney(total)}</span>
           </div>

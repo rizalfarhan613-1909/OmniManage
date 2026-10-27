@@ -1,4 +1,6 @@
-import { t } from '@/lib/i18n';
+'use client';
+
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { cn } from '@/lib/utils/cn';
 
 type SkeletonProps = {
@@ -8,7 +10,10 @@ type SkeletonProps = {
 /** Base Sage loading block (DESIGN.md §7). */
 export function Skeleton({ className }: SkeletonProps) {
   return (
-    <div aria-hidden="true" className={cn('animate-pulse rounded-md bg-sage-light', className)} />
+    <div
+      aria-hidden="true"
+      className={cn('animate-pulse rounded-md bg-surface-muted', className)}
+    />
   );
 }
 
@@ -17,13 +22,15 @@ type CountProps = {
 };
 
 export function KpiGridSkeleton({ count = 4 }: CountProps) {
+  const { t } = useI18n();
+
   return (
     <div role="status" aria-live="polite" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <span className="sr-only">{t('states.loading')}</span>
       {Array.from({ length: count }, (_, index) => (
         <div
           key={`kpi-${index}`}
-          className="rounded-lg border border-sage bg-surface p-5 shadow-sm"
+          className="rounded-lg border border-line bg-surface p-5 shadow-sm"
         >
           <Skeleton className="h-4 w-28" />
           <Skeleton className="mt-4 h-9 w-44" />
@@ -40,14 +47,16 @@ type TableSkeletonProps = {
 };
 
 export function TableSkeleton({ columns = 5, rows = 6 }: TableSkeletonProps) {
+  const { t } = useI18n();
+
   return (
     <div
       role="status"
       aria-live="polite"
-      className="overflow-hidden rounded-lg border border-sage bg-surface"
+      className="overflow-hidden rounded-lg border border-line bg-surface"
     >
       <span className="sr-only">{t('states.loading')}</span>
-      <div className="flex gap-4 border-b border-sage bg-sage-light/60 px-4 py-3">
+      <div className="flex gap-4 border-b border-line bg-surface-muted/60 px-4 py-3">
         {Array.from({ length: columns }, (_, index) => (
           <Skeleton key={`head-${index}`} className="h-3 flex-1" />
         ))}
@@ -55,7 +64,7 @@ export function TableSkeleton({ columns = 5, rows = 6 }: TableSkeletonProps) {
       {Array.from({ length: rows }, (_, rowIndex) => (
         <div
           key={`row-${rowIndex}`}
-          className="flex gap-4 border-b border-sage/60 px-4 py-4 last:border-b-0"
+          className="flex gap-4 border-b border-line/60 px-4 py-4 last:border-b-0"
         >
           {Array.from({ length: columns }, (_, columnIndex) => (
             <Skeleton key={`cell-${rowIndex}-${columnIndex}`} className="h-4 flex-1" />
@@ -67,11 +76,13 @@ export function TableSkeleton({ columns = 5, rows = 6 }: TableSkeletonProps) {
 }
 
 export function ChartSkeleton() {
+  const { t } = useI18n();
+
   return (
     <div
       role="status"
       aria-live="polite"
-      className="rounded-lg border border-sage bg-surface p-5 shadow-sm"
+      className="rounded-lg border border-line bg-surface p-5 shadow-sm"
     >
       <span className="sr-only">{t('states.loading')}</span>
       <Skeleton className="h-4 w-40" />
@@ -86,13 +97,15 @@ type ListSkeletonProps = {
 };
 
 export function ListSkeleton({ rows = 4 }: ListSkeletonProps) {
+  const { t } = useI18n();
+
   return (
     <div role="status" aria-live="polite" className="space-y-3">
       <span className="sr-only">{t('states.loading')}</span>
       {Array.from({ length: rows }, (_, index) => (
         <div
           key={`list-${index}`}
-          className="flex items-center gap-3 rounded-lg border border-sage bg-surface p-4"
+          className="flex items-center gap-3 rounded-lg border border-line bg-surface p-4"
         >
           <Skeleton className="h-9 w-9 rounded-full" />
           <div className="flex-1 space-y-2">

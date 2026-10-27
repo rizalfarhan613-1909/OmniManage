@@ -3,8 +3,8 @@
 import { AlertTriangle, Check, Copy, RotateCw } from 'lucide-react';
 import { useState } from 'react';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { Button } from '@/components/ui/Button';
-import { t } from '@/lib/i18n';
 
 type Props = {
   title?: string;
@@ -14,13 +14,11 @@ type Props = {
 };
 
 /** Required error state with retry and a copyable traceId (DESIGN.md §7). */
-export function ErrorState({
-  title = t('states.error.title'),
-  description = t('states.error.body'),
-  traceId,
-  onRetry,
-}: Props) {
+export function ErrorState({ title, description, traceId, onRetry }: Props) {
+  const { t } = useI18n();
   const [hasCopied, setHasCopied] = useState(false);
+  const heading = title ?? t('states.error.title');
+  const body = description ?? t('states.error.body');
 
   const handleCopy = async () => {
     if (!traceId) {
@@ -38,18 +36,18 @@ export function ErrorState({
   return (
     <section
       aria-labelledby="error-state-title"
-      className="mx-auto flex max-w-xl flex-col items-center rounded-lg border border-sage bg-surface px-6 py-12 text-center shadow-sm"
+      className="mx-auto flex max-w-xl flex-col items-center rounded-lg border border-line bg-surface px-6 py-12 text-center shadow-sm"
     >
-      <span className="bg-danger/10 flex h-12 w-12 items-center justify-center rounded-full">
+      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-danger/10">
         <AlertTriangle className="h-6 w-6 text-danger" aria-hidden="true" />
       </span>
       <h1 id="error-state-title" className="mt-4 text-lg font-semibold text-charcoal">
-        {title}
+        {heading}
       </h1>
-      <p className="mt-2 text-sm text-charcoal-light">{description}</p>
+      <p className="mt-2 text-sm text-charcoal-light">{body}</p>
 
       {traceId ? (
-        <div className="mt-4 flex items-center gap-2 rounded-md bg-sage-light px-3 py-1.5">
+        <div className="mt-4 flex items-center gap-2 rounded-md bg-surface-muted px-3 py-1.5">
           <code className="break-all font-mono text-xs text-charcoal">{traceId}</code>
           <Button
             variant="ghost"

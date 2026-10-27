@@ -1,12 +1,11 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+import { StatusBadge } from '@/components/shared/StatusBadge';
 import { MODULE_CODES } from '@/config/module-codes';
 import { getModuleLabel } from '@/config/module-labels';
 import type { DashboardRecordCounts } from '@/features/dashboard/api/types';
-import { t } from '@/lib/i18n';
 import { formatCount } from '@/lib/utils/format';
-
-import { StatusBadge } from '@/components/shared/StatusBadge';
 
 type Props = {
   modules: readonly string[];
@@ -32,6 +31,8 @@ function recordCountFor(moduleCode: string, counts: DashboardRecordCounts): numb
 
 /** Licensed-module summary; modules without a read API show no fabricated usage. */
 export function ModuleUtilization({ modules, counts }: Props) {
+  const { t } = useI18n();
+
   if (modules.length === 0) {
     return (
       <p className="py-8 text-center text-sm text-charcoal-light">
@@ -52,7 +53,7 @@ export function ModuleUtilization({ modules, counts }: Props) {
         const label = getModuleLabel(moduleCode);
 
         return (
-          <li key={moduleCode} className="rounded-md border border-sage bg-surface px-3 py-2.5">
+          <li key={moduleCode} className="rounded-md border border-line bg-surface px-3 py-2.5">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-charcoal">{t(label)}</p>

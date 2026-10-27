@@ -12,10 +12,10 @@ type Props = ComponentPropsWithoutRef<'button'> & {
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
-    'bg-teal-primary text-charcoal hover:bg-teal-hover active:bg-primary-700 focus-visible:ring-teal-primary',
+    'bg-teal-primary text-on-accent hover:bg-teal-hover active:bg-primary-700 focus-visible:ring-teal-primary',
   secondary:
-    'border border-sage bg-surface text-charcoal hover:bg-sage-light focus-visible:ring-teal-primary',
-  ghost: 'text-charcoal hover:bg-sage-light focus-visible:ring-teal-primary',
+    'border border-line bg-surface text-charcoal hover:bg-surface-muted focus-visible:ring-teal-primary',
+  ghost: 'text-charcoal hover:bg-surface-muted focus-visible:ring-teal-primary',
   danger: 'bg-danger text-surface hover:bg-danger/90 focus-visible:ring-danger',
 };
 

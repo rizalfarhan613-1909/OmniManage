@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { Plus, ArrowUpDown } from 'lucide-react';
 import { useState } from 'react';
 
@@ -21,7 +23,7 @@ import type {
   RecordWorkLogRequest,
 } from '@/features/projects/types';
 import { toSortParam, type SortState } from '@/lib/api/pagination';
-import { t, type TranslationKey } from '@/lib/i18n';
+import type { TranslationKey } from '@/lib/i18n';
 import { formatQuantity } from '@/lib/utils/format';
 
 import { CreateTaskDialog } from './CreateTaskDialog';
@@ -44,6 +46,7 @@ const STATUS_LABEL = {
 } as const;
 
 export function TasksView() {
+  const { t } = useI18n();
   const session = useSession();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ field: 'createdAt', direction: 'desc' });

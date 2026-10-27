@@ -1,10 +1,12 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Input } from '@/components/ui/Input';
-import { t } from '@/lib/i18n';
+
 import { toDateOnlyString } from '@/lib/utils/date';
 import type { CreateAssetRequest } from '../types';
 
@@ -27,6 +29,7 @@ type AssetForm = {
 };
 
 export function CreateAssetDialog({ isOpen, isPending, error, onConfirm, onCancel }: Props) {
+  const { t } = useI18n();
   const [formData, setFormData] = useState<AssetForm>({
     assetCode: '',
     name: '',

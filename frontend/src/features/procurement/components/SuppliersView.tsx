@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { useState } from 'react';
 
 import { DataTable, type DataTableColumn } from '@/components/shared/DataTable';
@@ -10,11 +12,11 @@ import { StatusBadge } from '@/components/shared/StatusBadge';
 import type { Supplier } from '@/features/procurement/api/types';
 import { useGetSuppliers } from '@/features/procurement/api/useGetSuppliers';
 import { toSortParam, type SortState } from '@/lib/api/pagination';
-import { t } from '@/lib/i18n';
 
 const PAGE_SIZE = 10;
 
 export function SuppliersView() {
+  const { t } = useI18n();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ field: 'name', direction: 'asc' });
 

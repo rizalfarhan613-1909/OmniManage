@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/components/providers/LanguageProvider';
+
 import { CheckCircle2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
@@ -16,7 +18,7 @@ import { useConfirmSalesOrder } from '@/features/sales/api/use-confirm-sales-ord
 import { useSalesOrders } from '@/features/sales/api/use-sales-orders';
 import type { SalesOrder, SalesOrderStatus } from '@/features/sales/api/types';
 import { MAX_PAGE_SIZE, toSortParam, type SortState } from '@/lib/api/pagination';
-import { t } from '@/lib/i18n';
+
 import { formatDateTime, formatMoney } from '@/lib/utils/format';
 
 import { ConfirmOrderDialog } from './ConfirmOrderDialog';
@@ -36,6 +38,7 @@ const STATUS_LABEL = {
 } as const;
 
 export function SalesView() {
+  const { t } = useI18n();
   const session = useSession();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ field: 'createdAt', direction: 'desc' });

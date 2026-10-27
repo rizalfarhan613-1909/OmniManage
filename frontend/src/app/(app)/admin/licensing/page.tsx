@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 
 import { LicensingView } from '@/features/admin/components/LicensingView';
-import { t } from '@/lib/i18n';
+import { translate } from '@/lib/i18n';
+import { getRequestLocale } from '@/lib/i18n/server';
 
-export const metadata: Metadata = { title: t('nav.admin.licensing') };
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+
+  return { title: translate(locale, 'nav.admin.licensing') };
+}
 
 export default function LicensingPage() {
   return <LicensingView />;

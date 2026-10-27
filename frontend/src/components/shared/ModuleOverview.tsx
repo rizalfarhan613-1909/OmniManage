@@ -1,6 +1,9 @@
+'use client';
+
+import { useI18n } from '@/components/providers/LanguageProvider';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { t, type TranslationKey } from '@/lib/i18n';
+import type { TranslationKey } from '@/lib/i18n';
 
 type Props = {
   titleKey: TranslationKey;
@@ -12,6 +15,8 @@ type Props = {
  * empty/loading states. Module-specific dashboards land in Phase 4B.
  */
 export function ModuleOverview({ titleKey, descriptionKey }: Props) {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-6">
       <PageHeader title={t(titleKey)} description={t(descriptionKey)} />

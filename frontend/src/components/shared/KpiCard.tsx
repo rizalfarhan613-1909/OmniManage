@@ -20,7 +20,7 @@ type Props = {
 const TREND_STYLES: Record<KpiTrend['direction'], string> = {
   up: 'bg-mint-accent text-charcoal',
   down: 'bg-danger/10 text-danger',
-  flat: 'bg-sage-light text-charcoal-light',
+  flat: 'bg-surface-muted text-charcoal-light',
 };
 
 const TREND_ICONS = {
@@ -30,7 +30,7 @@ const TREND_ICONS = {
 } as const;
 
 const CARD_CLASSES =
-  'group flex h-full flex-col rounded-lg border border-sage bg-surface p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary focus-visible:ring-offset-2';
+  'group flex h-full flex-col rounded-lg border border-line bg-surface p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-primary focus-visible:ring-offset-2';
 
 /** Dashboard KPI card with the DESIGN.md §2.4 hover-float micro-interaction. */
 export function KpiCard({ label, value, helper, icon: Icon, trend, href }: Props) {
@@ -41,7 +41,7 @@ export function KpiCard({ label, value, helper, icon: Icon, trend, href }: Props
       <div className="flex items-start justify-between gap-3">
         <p className="text-xs font-semibold uppercase tracking-wide text-charcoal-light">{label}</p>
         {Icon ? (
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-sage-light">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-surface-muted">
             <Icon className="h-4 w-4 text-charcoal" aria-hidden="true" />
           </span>
         ) : null}
