@@ -31,6 +31,36 @@ internal sealed class FakeRefreshTokenRepository : IRefreshTokenRepository
                 .Where(token => token.TenantId == tenantId && token.SessionId == sessionId)
                 .ToArray());
 
+    public Task<IReadOnlyList<ActiveSessionProjection>> ListActiveSessionsAsync(
+        Guid tenantId,
+        DateTimeOffset now,
+        CancellationToken cancellationToken = default)
+    {
+        var sessions = Tokens
+            .Where(token => token.TenantId == tenantId && token.IsActive(now))
+            .GroupBy(token => token.SessionId)
+            .Select(group =>
+            {
+                var latest = group
+                    .OrderByDescending(token => token.IssuedAt)
+                    .ThenByDescending(token => token.Id)
+                    .First();
+
+                return new ActiveSessionProjection(
+                    group.Key,
+                    latest.UserId,
+                    string.Empty,
+                    [],
+                    latest.IpAddress ?? string.Empty,
+                    latest.UserAgent,
+                    group.Min(token => token.IssuedAt),
+                    group.Max(token => token.IssuedAt));
+            })
+            .ToArray();
+
+        return Task.FromResult<IReadOnlyList<ActiveSessionProjection>>(sessions);
+    }
+
     public Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         SaveChangesCallCount++;

@@ -43,6 +43,11 @@ public static class Permissions
         Assets.AssetCreate,
         Assets.AssetRead,
         Assets.MaintenanceRequest,
+        Platform.TenantRead,
+        Platform.TenantManage,
+        Platform.AuditRead,
+        Platform.SessionRead,
+        Platform.SessionTerminate,
     }.ToFrozenSet(StringComparer.Ordinal);
 
     public static class MasterData
@@ -116,5 +121,14 @@ public static class Permissions
         public const string AssetCreate = "assets.asset.create";
         public const string AssetRead = "assets.asset.read";
         public const string MaintenanceRequest = "assets.maintenance.request";
+    }
+
+    public static class Platform
+    {
+        public const string TenantRead = "platform.tenant.read";
+        public const string TenantManage = "platform.tenant.manage";
+        public const string AuditRead = "platform.audit.read";
+        public const string SessionRead = "platform.session.read";
+        public const string SessionTerminate = "platform.session.terminate";
     }
 }

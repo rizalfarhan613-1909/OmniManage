@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using OmniManage.BuildingBlocks.Contracts;
 using OmniManage.BuildingBlocks.Contracts.Security;
 using OmniManage.Modules.Platform.Contracts.Authorization;
+using OmniManage.Modules.Projects.Application.Common;
+using OmniManage.Modules.Projects.Application.Dtos;
 using OmniManage.Modules.Projects.Application.Tasks.CreateProjectTask;
 using OmniManage.Modules.Projects.Application.WorkLogs.RecordWorkLog;
 using OmniManage.Modules.Projects.Application.Queries;
@@ -73,10 +75,28 @@ public sealed class TasksController(ISender sender, TimeProvider clock, IMediato
     [HttpGet]
     [RequireModule(ModuleCodes.ProjectCore)]
     [HasPermission(Permissions.Projects.TaskRead)]
-    public async Task<IActionResult> GetTasks([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+    [ProducesResponseType(typeof(ApiResponse<PagedResult<TaskDto>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTasks(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25,
+        [FromQuery] string? search = null,
+        [FromQuery] Guid? projectId = null,
+        [FromQuery] Guid? assigneeEmployeeId = null,
+        [FromQuery] string? status = null,
+        [FromQuery] string? sort = null)
     {
-        var query = new GetProjectTasksQuery { PageNumber = pageNumber, PageSize = pageSize };
+        var query = new GetProjectTasksQuery
+        {
+            PageNumber = page,
+            PageSize = pageSize,
+            Search = search,
+            ProjectId = projectId,
+            AssigneeEmployeeId = assigneeEmployeeId,
+            Status = status,
+            Sort = sort,
+        };
+
         var result = await _mediator.Send(query, CancellationToken.None);
-        return Ok(result);
+        return FromPagedResult(result);
     }
 }

@@ -17,5 +17,10 @@ public interface IRefreshTokenRepository
         Guid sessionId,
         CancellationToken cancellationToken = default);
 
+    Task<IReadOnlyList<ActiveSessionProjection>> ListActiveSessionsAsync(
+        Guid tenantId,
+        DateTimeOffset now,
+        CancellationToken cancellationToken = default);
+
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

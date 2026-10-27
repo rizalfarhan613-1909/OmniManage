@@ -35,6 +35,9 @@ public static class PermissionModuleResolver
             Permissions.Procurement.SupplierRead
                 or Permissions.Procurement.PurchaseOrderRead
                 or Permissions.Procurement.PurchaseOrderCreate => ModuleCodes.ProcCore,
+            Permissions.Manufacturing.WorkOrderRead
+                or Permissions.Manufacturing.WorkOrderCreate
+                or Permissions.Manufacturing.BillOfMaterialRead => ModuleCodes.MfgCore,
             Permissions.Finance.InvoiceRead
                 or Permissions.Finance.InvoiceApprove => ModuleCodes.FinAr,
             Permissions.Finance.JournalRead => ModuleCodes.FinGl,
@@ -55,6 +58,11 @@ public static class PermissionModuleResolver
                 or Permissions.Inventory.WarehouseCreate
                 or Permissions.Inventory.StockRead
                 or Permissions.Inventory.StockAdjust => ModuleCodes.InvCore,
+            Permissions.Platform.TenantRead
+                or Permissions.Platform.TenantManage
+                or Permissions.Platform.AuditRead
+                or Permissions.Platform.SessionRead
+                or Permissions.Platform.SessionTerminate => ModuleCodes.PlatformCore,
             _ => string.Empty,
         };
 

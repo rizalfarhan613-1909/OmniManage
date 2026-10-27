@@ -47,7 +47,9 @@ public sealed class PlatformModule : IModule
         services.AddSingleton<TimeProvider>(TimeProvider.System);
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ITenantRepository, TenantRepository>();
+        services.AddScoped<ITenantModuleRepository, TenantModuleRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<IAuditLogRepository, AuditLogRepository>();
         services.AddScoped<LicensingService>();
         services.AddScoped<ITenantModuleCache>(serviceProvider =>
             serviceProvider.GetRequiredService<LicensingService>());

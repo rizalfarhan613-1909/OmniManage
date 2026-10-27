@@ -115,6 +115,30 @@ public sealed class ArInvoice : AggregateRoot<Guid>, ITenantEntity, IAuditable
             createdBy);
     }
 
+    public Result MarkPaid(DateTimeOffset paidAtUtc, Guid updatedBy)
+    {
+        if (Status != ArInvoiceStatus.Unpaid)
+        {
+            return ArInvoiceErrors.InvalidStatusTransition;
+        }
+
+        if (paidAtUtc == default)
+        {
+            return ArInvoiceErrors.InvalidCreatedAt;
+        }
+
+        if (updatedBy == Guid.Empty)
+        {
+            return ArInvoiceErrors.InvalidCreatedBy;
+        }
+
+        Status = ArInvoiceStatus.Paid;
+        UpdatedAt = paidAtUtc;
+        UpdatedBy = updatedBy;
+
+        return Result.Success();
+    }
+
     public static string BuildInvoiceNumber(Guid salesOrderId) =>
         $"{InvoiceNumberPrefix}-{salesOrderId:D}".ToUpperInvariant();
 

@@ -6,11 +6,10 @@ using OmniManage.BuildingBlocks.Contracts;
 using OmniManage.BuildingBlocks.Domain;
 using OmniManage.BuildingBlocks.Infrastructure.Persistence;
 using OmniManage.Modules.AssetMaintenance.Infrastructure.Persistence;
-using OmniManage.Modules.Finance.Domain.Gl;
 using OmniManage.Modules.Finance.Infrastructure.Persistence;
 using OmniManage.Modules.Hris.Infrastructure.Persistence;
-using OmniManage.Modules.Inventory.Domain.Warehouses;
 using OmniManage.Modules.Inventory.Infrastructure.Persistence;
+using OmniManage.Modules.Manufacturing.Infrastructure.Persistence;
 using OmniManage.Modules.MasterData.Domain.BusinessPartners;
 using OmniManage.Modules.MasterData.Domain.Items;
 using OmniManage.Modules.MasterData.Infrastructure.Persistence;
@@ -21,6 +20,7 @@ using OmniManage.Modules.Platform.Infrastructure.Persistence;
 using OmniManage.Modules.Procurement.Domain.Suppliers;
 using OmniManage.Modules.Procurement.Infrastructure.Persistence;
 using OmniManage.Modules.Projects.Infrastructure.Persistence;
+using OmniManage.Modules.Sales.Infrastructure.Persistence;
 
 namespace OmniManage.Api.Seeding;
 
@@ -101,19 +101,52 @@ public sealed class DbSeeder(
         var (tenant, adminUser) = await SeedPlatformAsync(options, now, cancellationToken)
             .ConfigureAwait(false);
 
-        var customerIds = await SeedMasterDataAsync(tenant.Id, adminUser.Id, now, cancellationToken)
+        var masterData = await SeedMasterDataAsync(tenant.Id, adminUser.Id, now, cancellationToken)
             .ConfigureAwait(false);
-        await SeedInventoryAsync(tenant.Id, adminUser.Id, now, cancellationToken)
+        await SeedInventoryAsync(tenant.Id, adminUser.Id, masterData.Items, now, cancellationToken)
             .ConfigureAwait(false);
-        await SeedProcurementAsync(tenant.Id, adminUser.Id, now, cancellationToken)
+        await SeedProcurementAsync(
+                tenant.Id,
+                adminUser.Id,
+                masterData.Items,
+                now,
+                cancellationToken)
             .ConfigureAwait(false);
-        await SeedFinanceAsync(tenant.Id, adminUser.Id, now, cancellationToken)
+        var salesOrders = await SeedSalesAsync(
+                tenant.Id,
+                adminUser.Id,
+                masterData.CustomerIds,
+                masterData.Items,
+                now,
+                cancellationToken)
+            .ConfigureAwait(false);
+        await SeedFinanceAsync(
+                tenant.Id,
+                adminUser.Id,
+                salesOrders,
+                now,
+                cancellationToken)
             .ConfigureAwait(false);
         var employeeIds = await SeedHrisAsync(tenant.Id, now, cancellationToken)
             .ConfigureAwait(false);
-        await SeedProjectsAsync(tenant.Id, customerIds, employeeIds, now, cancellationToken)
+        await SeedProjectsAsync(tenant.Id, masterData.CustomerIds, employeeIds, now, cancellationToken)
             .ConfigureAwait(false);
         await SeedAssetMaintenanceAsync(tenant.Id, now, cancellationToken)
+            .ConfigureAwait(false);
+        await SeedManufacturingAsync(
+                tenant.Id,
+                adminUser.Id,
+                masterData.Items,
+                now,
+                cancellationToken)
+            .ConfigureAwait(false);
+        await PlatformAuditDataSeeder.SeedAsync(
+                platform,
+                tenant.Id,
+                adminUser.Id,
+                guidGenerator,
+                now,
+                cancellationToken)
             .ConfigureAwait(false);
 
         logger.LogInformation(
@@ -342,7 +375,7 @@ public sealed class DbSeeder(
         logger.LogInformation("Seeding System Superadmin {SuperadminEmail}.", superadmin.Email);
     }
 
-    private async Task<IReadOnlyList<Guid>> SeedMasterDataAsync(
+    private async Task<MasterDataSeedResult> SeedMasterDataAsync(
         Guid tenantId,
         Guid createdBy,
         DateTimeOffset now,
@@ -409,16 +442,34 @@ public sealed class DbSeeder(
 
         await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        return await context.BusinessPartners
+        var customerIds = await context.BusinessPartners
             .Where(partner => partner.PartnerType == PartnerType.Customer)
             .Select(partner => partner.Id)
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
+
+        var seededSkus = SampleItems.Select(sample => sample.Sku).ToArray();
+        var items = await context.Items
+            .AsNoTracking()
+            .Where(item => seededSkus.Contains(item.Sku))
+            .OrderBy(item => item.Sku)
+            .Select(item => new SeedItem(
+                item.Id,
+                item.Sku,
+                item.Name,
+                item.BasePrice,
+                item.CostPrice,
+                item.IsStockTracked))
+            .ToListAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        return new MasterDataSeedResult(customerIds, items);
     }
 
     private async Task SeedInventoryAsync(
         Guid tenantId,
         Guid createdBy,
+        IReadOnlyList<SeedItem> items,
         DateTimeOffset now,
         CancellationToken cancellationToken)
     {
@@ -429,30 +480,25 @@ public sealed class DbSeeder(
 
         await using var context = new InventoryDbContext(optionsBuilder.Options, tenant);
 
-        var exists = await context.Warehouses
-            .AnyAsync(warehouse => warehouse.Code == "WH-01", cancellationToken)
+        var warehouses = await InventoryDataSeeder.SeedAsync(
+                context,
+                tenantId,
+                createdBy,
+                items,
+                guidGenerator,
+                now,
+                cancellationToken)
             .ConfigureAwait(false);
 
-        if (exists)
-        {
-            return;
-        }
-
-        context.Warehouses.Add(EnsureSuccess(Warehouse.Create(
-            guidGenerator.NewGuid(),
-            tenantId,
-            "WH-01",
-            "Main Distribution Warehouse",
-            "1 Logistics Way, Jakarta",
-            now,
-            createdBy)));
-
-        await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        logger.LogInformation(
+            "Seeded {WarehouseCount} demo warehouses with stock ledger history.",
+            warehouses.Count);
     }
 
     private async Task SeedProcurementAsync(
         Guid tenantId,
         Guid createdBy,
+        IReadOnlyList<SeedItem> items,
         DateTimeOffset now,
         CancellationToken cancellationToken)
     {
@@ -490,11 +536,57 @@ public sealed class DbSeeder(
         }
 
         await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+        await ProcurementDataSeeder.SeedAsync(
+                context,
+                tenantId,
+                createdBy,
+                items,
+                guidGenerator,
+                now,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        logger.LogInformation("Seeded demo suppliers and purchase orders.");
+    }
+
+    private async Task<IReadOnlyList<SeedSalesOrder>> SeedSalesAsync(
+        Guid tenantId,
+        Guid createdBy,
+        IReadOnlyList<Guid> customerIds,
+        IReadOnlyList<SeedItem> items,
+        DateTimeOffset now,
+        CancellationToken cancellationToken)
+    {
+        var tenant = new SeedTenantContext(tenantId);
+        var optionsBuilder = new DbContextOptionsBuilder<SalesDbContext>();
+        optionsBuilder.UseOmniManagePostgreSql(postgreSqlOptions.Value, SalesDbContext.Schema);
+        optionsBuilder.AddTenantIsolation(tenant);
+
+        await using var context = new SalesDbContext(optionsBuilder.Options, tenant);
+
+        var salesOrders = await SalesDataSeeder.SeedAsync(
+                context,
+                tenantId,
+                createdBy,
+                customerIds,
+                items,
+                guidGenerator,
+                now,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        logger.LogInformation(
+            "Seeded {SalesOrderCount} demo sales orders across the last six months.",
+            salesOrders.Count);
+
+        return salesOrders;
     }
 
     private async Task SeedFinanceAsync(
         Guid tenantId,
         Guid createdBy,
+        IReadOnlyList<SeedSalesOrder> salesOrders,
         DateTimeOffset now,
         CancellationToken cancellationToken)
     {
@@ -505,39 +597,17 @@ public sealed class DbSeeder(
 
         await using var context = new FinanceDbContext(optionsBuilder.Options, tenant);
 
-        var accountCodes = await context.GlAccounts
-            .Select(account => account.AccountCode)
-            .ToListAsync(cancellationToken)
+        await FinanceDataSeeder.SeedAsync(
+                context,
+                tenantId,
+                createdBy,
+                salesOrders,
+                guidGenerator,
+                now,
+                cancellationToken)
             .ConfigureAwait(false);
-        var existingCodes = accountCodes.ToHashSet(StringComparer.Ordinal);
 
-        if (!existingCodes.Contains(ChartOfAccounts.AccountsReceivableCode))
-        {
-            context.GlAccounts.Add(EnsureSuccess(GlAccount.Create(
-                guidGenerator.NewGuid(),
-                tenantId,
-                ChartOfAccounts.AccountsReceivableCode,
-                ChartOfAccounts.AccountsReceivableName,
-                GlAccountType.Asset,
-                isActive: true,
-                now,
-                createdBy)));
-        }
-
-        if (!existingCodes.Contains(ChartOfAccounts.SalesRevenueCode))
-        {
-            context.GlAccounts.Add(EnsureSuccess(GlAccount.Create(
-                guidGenerator.NewGuid(),
-                tenantId,
-                ChartOfAccounts.SalesRevenueCode,
-                ChartOfAccounts.SalesRevenueName,
-                GlAccountType.Revenue,
-                isActive: true,
-                now,
-                createdBy)));
-        }
-
-        await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        logger.LogInformation("Seeded demo chart of accounts, A/R invoices and journal entries.");
     }
 
     private async Task<IReadOnlyList<Guid>> SeedHrisAsync(
@@ -615,6 +685,35 @@ public sealed class DbSeeder(
             .ConfigureAwait(false);
 
         logger.LogInformation("Seeded demo assets and maintenance orders.");
+    }
+
+    private async Task SeedManufacturingAsync(
+        Guid tenantId,
+        Guid createdBy,
+        IReadOnlyList<SeedItem> items,
+        DateTimeOffset now,
+        CancellationToken cancellationToken)
+    {
+        var tenant = new SeedTenantContext(tenantId);
+        var optionsBuilder = new DbContextOptionsBuilder<ManufacturingDbContext>();
+        optionsBuilder.UseOmniManagePostgreSql(
+            postgreSqlOptions.Value,
+            ManufacturingDbContext.Schema);
+        optionsBuilder.AddTenantIsolation(tenant);
+
+        await using var context = new ManufacturingDbContext(optionsBuilder.Options, tenant);
+
+        await ManufacturingDataSeeder.SeedAsync(
+                context,
+                tenantId,
+                createdBy,
+                items,
+                guidGenerator,
+                now,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        logger.LogInformation("Seeded demo bill-of-materials and work orders.");
     }
 
     private static T EnsureSuccess<T>(Result<T> result)

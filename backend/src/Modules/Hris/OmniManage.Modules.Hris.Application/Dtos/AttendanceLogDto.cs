@@ -1,10 +1,30 @@
+using System.Globalization;
+using OmniManage.Modules.Hris.Domain.Attendance;
+
 namespace OmniManage.Modules.Hris.Application.Dtos;
 
-public class AttendanceLogDto
+public sealed record AttendanceLogDto(
+    Guid Id,
+    Guid EmployeeId,
+    DateTimeOffset ClockInUtc,
+    DateTimeOffset? ClockOutUtc,
+    string Latitude,
+    string Longitude,
+    string? PhotoUrl,
+    string Status)
 {
-    public Guid Id { get; set; }
-    public Guid EmployeeId { get; set; }
-    public DateTime Timestamp { get; set; }
-    public string Action { get; set; } = string.Empty;
-    public string Details { get; set; } = string.Empty;
+    internal static AttendanceLogDto From(SmartAttendanceLog log)
+    {
+        ArgumentNullException.ThrowIfNull(log);
+
+        return new AttendanceLogDto(
+            log.Id,
+            log.EmployeeId,
+            log.ClockInUtc,
+            log.ClockOutUtc,
+            log.Latitude.ToString("0.000000", CultureInfo.InvariantCulture),
+            log.Longitude.ToString("0.000000", CultureInfo.InvariantCulture),
+            log.PhotoUrl,
+            log.Status.ToString());
+    }
 }

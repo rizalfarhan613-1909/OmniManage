@@ -10,5 +10,9 @@ public interface IMaintenanceOrderRepository
         string requestNumber,
         CancellationToken cancellationToken = default);
 
+    Task<(IReadOnlyList<MaintenanceOrder> Orders, long TotalItems)> ListAsync(
+        MaintenanceOrderListCriteria criteria,
+        CancellationToken cancellationToken = default);
+
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

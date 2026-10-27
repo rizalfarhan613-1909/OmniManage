@@ -34,4 +34,14 @@ public static class TenantErrors
         "PLATFORM.TENANT.INVALID_STATUS_TRANSITION",
         $"Cannot {action} a tenant in the '{status}' status.",
         ErrorType.Conflict);
+
+    public static readonly Error NotFound = new(
+        "PLATFORM.TENANT.NOT_FOUND",
+        "The tenant was not found.",
+        ErrorType.NotFound);
+
+    public static readonly Error InvalidStatus = new(
+        "PLATFORM.TENANT.INVALID_STATUS",
+        "Tenant status must be one of: Active, Suspended or Archived.",
+        ErrorType.Validation);
 }

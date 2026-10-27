@@ -49,6 +49,11 @@ public static class ArInvoiceErrors
         "Status must be Unpaid, Paid or Cancelled.",
         ErrorType.Validation);
 
+    public static readonly Error InvalidStatusTransition = new(
+        "FINANCE.AR_INVOICE.INVALID_STATUS_TRANSITION",
+        "Only an unpaid invoice can be marked as paid.",
+        ErrorType.Conflict);
+
     public static readonly Error NotFound = new(
         "FINANCE.AR_INVOICE.NOT_FOUND",
         "The A/R invoice was not found.",

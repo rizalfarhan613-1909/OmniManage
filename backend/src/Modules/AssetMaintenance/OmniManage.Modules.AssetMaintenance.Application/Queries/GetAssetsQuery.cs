@@ -7,5 +7,14 @@ namespace OmniManage.Modules.AssetMaintenance.Application.Queries;
 public class GetAssetsQuery : IRequest<PagedResult<AssetDto>>
 {
     public int PageNumber { get; set; } = 1;
-    public int PageSize { get; set; } = 10;
+
+    public int PageSize { get; set; } = 25;
+
+    public string? Search { get; set; }
+
+    public string? Category { get; set; }
+
+    public string? Status { get; set; }
+
+    public string? Sort { get; set; }
 }

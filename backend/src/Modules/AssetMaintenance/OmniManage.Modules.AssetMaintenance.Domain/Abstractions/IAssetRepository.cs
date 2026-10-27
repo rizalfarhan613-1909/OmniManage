@@ -10,5 +10,9 @@ public interface IAssetRepository
 
     Task<Asset?> GetByIdAsync(Guid assetId, CancellationToken cancellationToken = default);
 
+    Task<(IReadOnlyList<Asset> Assets, long TotalItems)> ListAsync(
+        AssetListCriteria criteria,
+        CancellationToken cancellationToken = default);
+
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

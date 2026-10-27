@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OmniManage.BuildingBlocks.Contracts;
 using OmniManage.BuildingBlocks.Domain;
+using OmniManage.Modules.Platform.Application.Common;
 
 namespace OmniManage.Modules.Platform.Presentation.Controllers;
 
@@ -20,6 +21,19 @@ public abstract class ApiControllerBase(TimeProvider clock) : ControllerBase
         return Ok(ApiResponse<T>.Ok(result.Value, CreateMeta()));
     }
 
+    protected IActionResult FromPagedResult<T>(PagedResult<T> result)
+    {
+        ArgumentNullException.ThrowIfNull(result);
+
+        var pagination = new PaginationMeta(
+            result.Page,
+            result.PageSize,
+            result.TotalItems,
+            result.TotalPages);
+
+        return Ok(ApiResponse<PagedResult<T>>.Ok(result, CreateMeta(pagination)));
+    }
+
     protected IActionResult FromError(Error error)
     {
         ArgumentNullException.ThrowIfNull(error);
@@ -29,8 +43,8 @@ public abstract class ApiControllerBase(TimeProvider clock) : ControllerBase
         return StatusCode(MapStatusCode(error.Type), response);
     }
 
-    private ApiMeta CreateMeta() =>
-        new(Activity.Current?.Id ?? HttpContext.TraceIdentifier, clock.GetUtcNow().UtcDateTime);
+    private ApiMeta CreateMeta(PaginationMeta? pagination = null) =>
+        new(Activity.Current?.Id ?? HttpContext.TraceIdentifier, clock.GetUtcNow().UtcDateTime, pagination);
 
     private static int MapStatusCode(ErrorType errorType) =>
         errorType switch

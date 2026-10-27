@@ -1,11 +1,31 @@
+using System.Globalization;
+using OmniManage.Modules.Projects.Domain.Tasks;
+
 namespace OmniManage.Modules.Projects.Application.Dtos;
 
-public class TaskDto
+public sealed record TaskDto(
+    Guid Id,
+    Guid ProjectId,
+    string Title,
+    Guid? AssigneeEmployeeId,
+    string Status,
+    string EstimatedHours,
+    string CompletedHours)
 {
-    public Guid Id { get; set; }
-    public Guid ProjectId { get; set; }
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public DateTime CreatedDate { get; set; }
-    public bool IsCompleted { get; set; }
+    internal static TaskDto From(ProjectTask task)
+    {
+        ArgumentNullException.ThrowIfNull(task);
+
+        return new TaskDto(
+            task.Id,
+            task.ProjectId,
+            task.Title,
+            task.AssigneeEmployeeId,
+            task.Status.ToString(),
+            FormatHours(task.EstimatedHours),
+            FormatHours(task.CompletedHours));
+    }
+
+    private static string FormatHours(decimal hours) =>
+        hours.ToString("0.00", CultureInfo.InvariantCulture);
 }

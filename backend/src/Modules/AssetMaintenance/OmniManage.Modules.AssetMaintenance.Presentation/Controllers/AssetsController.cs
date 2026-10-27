@@ -5,6 +5,7 @@ using OmniManage.BuildingBlocks.Contracts;
 using OmniManage.BuildingBlocks.Contracts.Security;
 using OmniManage.Modules.Platform.Contracts.Authorization;
 using OmniManage.Modules.AssetMaintenance.Application.Assets.CreateAsset;
+using OmniManage.Modules.AssetMaintenance.Application.Common;
 using OmniManage.Modules.AssetMaintenance.Application.Dtos;
 using OmniManage.Modules.AssetMaintenance.Application.Maintenance.RequestMaintenance;
 using OmniManage.Modules.AssetMaintenance.Application.Queries;
@@ -76,10 +77,26 @@ public sealed class AssetsController(ISender sender, TimeProvider clock) : ApiCo
 
     [HttpGet]
     [HasPermission(Permissions.Assets.AssetRead)]
-    public async Task<IActionResult> GetAssets([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+    [ProducesResponseType(typeof(ApiResponse<PagedResult<AssetDto>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAssets(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25,
+        [FromQuery] string? search = null,
+        [FromQuery] string? category = null,
+        [FromQuery] string? status = null,
+        [FromQuery] string? sort = null)
     {
-        var query = new GetAssetsQuery { PageNumber = pageNumber, PageSize = pageSize };
+        var query = new GetAssetsQuery
+        {
+            PageNumber = page,
+            PageSize = pageSize,
+            Search = search,
+            Category = category,
+            Status = status,
+            Sort = sort,
+        };
+
         var result = await sender.Send(query, CancellationToken.None);
-        return Ok(result);
+        return FromPagedResult(result);
     }
 }

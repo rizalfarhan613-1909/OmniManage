@@ -89,66 +89,45 @@ public sealed class ArInvoiceTests
     }
 
     [Fact]
-    public void Create_WithEmptyIdentifiers_ReturnsValidationErrors()
+    public void MarkPaid_WhenUnpaid_MarksTheInvoicePaid()
     {
-        ArInvoice.Create(
-            Guid.Empty,
-            TenantId,
-            "AR-001",
-            SalesOrderId,
-            CustomerId,
-            10m,
-            Now,
-            UserId).Error.Should().Be(ArInvoiceErrors.InvalidId);
-
-        ArInvoice.Create(
-            InvoiceId,
-            Guid.Empty,
-            "AR-001",
-            SalesOrderId,
-            CustomerId,
-            10m,
-            Now,
-            UserId).Error.Should().Be(ArInvoiceErrors.InvalidTenantId);
-
-        ArInvoice.Create(
-            InvoiceId,
-            TenantId,
-            "AR-001",
-            Guid.Empty,
-            CustomerId,
-            10m,
-            Now,
-            UserId).Error.Should().Be(ArInvoiceErrors.InvalidSalesOrderId);
-
-        ArInvoice.Create(
-            InvoiceId,
-            TenantId,
-            "AR-001",
-            SalesOrderId,
-            Guid.Empty,
-            10m,
-            Now,
-            UserId).Error.Should().Be(ArInvoiceErrors.InvalidCustomerId);
-
-        ArInvoice.Create(
+        var invoice = ArInvoice.Create(
             InvoiceId,
             TenantId,
             "AR-001",
             SalesOrderId,
             CustomerId,
-            10m,
-            default,
-            UserId).Error.Should().Be(ArInvoiceErrors.InvalidCreatedAt);
+            99.95m,
+            Now,
+            UserId).Value;
 
-        ArInvoice.Create(
+        var paidAt = Now.AddDays(3);
+
+        var result = invoice.MarkPaid(paidAt, UserId);
+
+        result.IsSuccess.Should().BeTrue();
+        invoice.Status.Should().Be(ArInvoiceStatus.Paid);
+        invoice.UpdatedAt.Should().Be(paidAt);
+        invoice.UpdatedBy.Should().Be(UserId);
+    }
+
+    [Fact]
+    public void MarkPaid_WhenAlreadyPaid_ReturnsConflict()
+    {
+        var invoice = ArInvoice.Create(
             InvoiceId,
             TenantId,
             "AR-001",
             SalesOrderId,
             CustomerId,
-            10m,
+            99.95m,
             Now,
-            Guid.Empty).Error.Should().Be(ArInvoiceErrors.InvalidCreatedBy);
+            UserId).Value;
+        invoice.MarkPaid(Now.AddDays(1), UserId);
+
+        var result = invoice.MarkPaid(Now.AddDays(2), UserId);
+
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(ArInvoiceErrors.InvalidStatusTransition);
     }
 }

@@ -84,6 +84,35 @@ public sealed class Phase6EndpointsTests(ApiFactory factory) : IClassFixture<Api
             .Which.Message.Should().Be(ExpectedModuleCode(endpoint));
     }
 
+    [Theory]
+    [InlineData("/api/v1/hris/attendance")]
+    [InlineData("/api/v1/projects/tasks")]
+    [InlineData("/api/v1/assets")]
+    public async Task ListEndpoints_ReturnPagedEnvelopeAndHonorPageQuery(string path)
+    {
+        using var client = await CreateAuthorizedClientAsync();
+
+        var response = await client.GetAsync(new Uri($"{path}?page=2&pageSize=5", UriKind.Relative));
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        var root = document.RootElement;
+
+        // The BFF treats any body without a `success` flag as an unreadable
+        // upstream response, so list endpoints must return the standard envelope.
+        root.GetProperty("success").GetBoolean().Should().BeTrue();
+
+        var data = root.GetProperty("data");
+        data.GetProperty("page").GetInt32().Should().Be(2);
+        data.GetProperty("pageSize").GetInt32().Should().Be(5);
+        data.GetProperty("items").ValueKind.Should().Be(JsonValueKind.Array);
+
+        var pagination = root.GetProperty("meta").GetProperty("pagination");
+        pagination.GetProperty("page").GetInt32().Should().Be(2);
+        pagination.GetProperty("pageSize").GetInt32().Should().Be(5);
+    }
+
     [Fact]
     public async Task ClockIn_WithActiveLicense_PersistsAttendanceAndOutbox()
     {

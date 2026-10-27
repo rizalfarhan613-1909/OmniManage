@@ -46,10 +46,27 @@ public sealed class AttendanceController(ISender sender, TimeProvider clock) : A
     [HttpGet("attendance")]
     [RequireModule(ModuleCodes.HrisAttendance)]
     [HasPermission(Permissions.Hris.AttendanceRead)]
-    public async Task<IActionResult> GetAttendanceLogs([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+    public async Task<IActionResult> GetAttendanceLogs(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10,
+        [FromQuery] Guid? employeeId = null,
+        [FromQuery] string? status = null,
+        [FromQuery] DateTimeOffset? fromUtc = null,
+        [FromQuery] DateTimeOffset? toUtc = null,
+        [FromQuery] string? sort = null)
     {
-        var query = new GetAttendanceLogsQuery { PageNumber = pageNumber, PageSize = pageSize };
+        var query = new GetAttendanceLogsQuery
+        {
+            PageNumber = page,
+            PageSize = pageSize,
+            EmployeeId = employeeId,
+            Status = status,
+            FromUtc = fromUtc,
+            ToUtc = toUtc,
+            Sort = sort,
+        };
+
         var result = await sender.Send(query, CancellationToken.None);
-        return Ok(result);
+        return FromPagedResult(result);
     }
 }
